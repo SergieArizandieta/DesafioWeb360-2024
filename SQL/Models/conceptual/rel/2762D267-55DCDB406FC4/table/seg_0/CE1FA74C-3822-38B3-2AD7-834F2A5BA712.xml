@@ -1,0 +1,159 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CE1FA74C-3822-38B3-2AD7-834F2A5BA712" name="User">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>8C1CA995-9902-C984-52CD-2E68F04E3621</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_User" id="88F72D61-DF41-F286-6DF2-4386042790D8">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>F4B3DCD1-2A93-D12E-FEC2-3DF7436F4EA7</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="06EA83FC-B7F9-E968-7E0D-20908003E6B6">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>27161DD3-4E60-ACA4-D99F-F13110022437</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>256</dataTypeSize>
+<ownDataTypeParameters>256,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="full_name" id="4179CB39-DFF3-CDBB-96CD-3F54A864F79D">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>22763247-92A3-A14E-99C2-333E570F233E</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password" id="10F57FDE-6DB9-257C-2F0E-99B50B079E9F">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>F5B6C702-7753-288E-3C5E-B7C5978A1144</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="phone" id="E590DB5C-7742-F44D-EB66-03DD248868AD">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>CBEAF441-D1C1-4E59-8098-92EAEF6A5630</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="birth_date" id="6812FE3E-6A8B-E4C1-6A07-EEB2368C5ADA">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>77F23D99-01E4-5266-8DA4-A0D5D34F4EE9</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="creation_date" id="D22592F2-AD92-F0AA-1CFA-965B731CC38C">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>14F65A28-D3C4-F80A-14A0-6A8E3655046B</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Status_id_Status" id="2FC47FA6-2C8E-D596-322C-E667530F92D2">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>3333CB78-11BA-0974-A431-FEBF787AEAB9</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C92805F7-9329-EC4A-17EF-434984449564" referredColumn="C1C471C6-0196-F461-55FB-78CB68566508"/>
+</associations>
+</Column>
+<Column name="Rol_id_Rol" id="852F3128-91D8-F0A7-A28D-408D15CC63F6">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>581A273B-B206-E5B4-096D-4BF5DC52EF31</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E331394B-BDE6-F0EB-2814-0F9A36B8EF73" referredColumn="5907670B-5A9D-B511-D929-07E579B4D142"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A41ECD1A-B329-D120-6A53-25C9C269B16B" name="User_PK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>99E1BFD9-0FD7-449A-DA49-153EAE4F4E69</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="88F72D61-DF41-F286-6DF2-4386042790D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="891F8C8D-7483-2DAB-3A10-B4026907E24D" name="User_Status_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>0D93F91B-631C-6AC2-474D-76B7071DEA7C</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2FC47FA6-2C8E-D596-322C-E667530F92D2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EFC93BBC-EFA2-CEF4-61D8-5F9397B6C6EC" name="User_Rol_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>E9EF1029-DEEA-34B1-1470-455DC71B8885</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="852F3128-91D8-F0A7-A28D-408D15CC63F6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

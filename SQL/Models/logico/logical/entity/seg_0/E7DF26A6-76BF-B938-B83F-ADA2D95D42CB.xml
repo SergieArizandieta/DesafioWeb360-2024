@@ -1,0 +1,123 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E7DF26A6-76BF-B938-B83F-ADA2D95D42CB" name="Order">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:18:53 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_Order" id="F6FEDF37-9DB1-83C0-F081-D0B507215EBD">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:18:57 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="creation_date" id="BCB6F58D-56D7-F0E4-1303-8FB41041663B">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:19:06 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="address" id="9F50B933-0845-1BAD-2C8F-E3FDE8E1FDD4">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:19:15 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="delivery_date" id="F9E4A278-1831-5840-8D48-1E9A3E227BBD">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:20:04 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="total" id="CD71C5A2-806F-DEDA-01F6-07B1BE7EC4C3">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:20:44 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_Client" id="9CABB400-3BF5-70AD-92A0-756973B2672C">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:36:23 UTC</createdTime>
+<generatorID>768CC571-1272-00FA-1545-5E17326A6E98</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<referedAttribute>A3867301-169B-2F84-D7C7-4C95B9B4DCB3</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_User" id="D5F3E8E8-3148-CB0B-B232-5654FDC613DC">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:36:43 UTC</createdTime>
+<generatorID>6DD8E239-1542-2E9A-3F70-3106695BA8EA</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<referedAttribute>F4B3DCD1-2A93-D12E-FEC2-3DF7436F4EA7</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B3F6A03F-E89E-B3A3-AA63-D746A4CDEC10" name="Orden PK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:19:05 UTC</createdTime>
+<ownerDesignName>logico</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F6FEDF37-9DB1-83C0-F081-D0B507215EBD</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

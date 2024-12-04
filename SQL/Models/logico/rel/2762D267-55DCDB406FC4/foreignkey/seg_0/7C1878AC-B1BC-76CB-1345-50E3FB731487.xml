@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="7C1878AC-B1BC-76CB-1345-50E3FB731487" containerWithKeyObject="6ADF3824-C3E6-5781-61A8-19686E4CEAF7" localFKIndex="10E6D10A-B4A0-71F8-EFB2-C9CDDF228A1B" name="Category_Status_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>168067A8-78D3-A0F7-0817-FC5151493AD0</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<referredTableLongName>Status</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>F539E4AA-E3A0-73AA-94DB-AED2272C567A</referredTableID>
+<keyObject>0489954A-5200-D373-8F6A-5CF0AC5B626F</keyObject>
+<referredKeyID>0489954A-5200-D373-8F6A-5CF0AC5B626F</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_Status</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

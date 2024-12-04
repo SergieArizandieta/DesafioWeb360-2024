@@ -1,0 +1,111 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E52C5F96-F30E-61ED-2CDD-64379A75EAA0" name="Detail">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>811E6450-C017-DFB0-6301-20C3B35DBB4A</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_Detail" id="8CAF664A-35A9-D1E4-C249-7C1F3A238648">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>4EF32FF3-8E88-7154-F726-D93F596F7931</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="quantity" id="9A758F68-75F1-E635-E192-2634FD086BBB">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>BB260D5C-3F2C-AEF7-F2EB-68E0742FC7CA</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="subtotal" id="65191C6D-3218-AE74-619C-BF306648966E">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>75E9C599-B134-C8B8-15F6-BDAC50E2720C</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Product_id_Product" id="FD69293B-16D0-9B9F-BA3D-93A9094099E8">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>2DDDEBC7-4BFF-D7A3-4AB8-FF93C75F9E7A</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="48CE0E72-EABA-D21D-7E09-F164AA158A3F" referredColumn="A31CB0C8-BDA4-CEA2-7A0F-F175C5355D31"/>
+</associations>
+</Column>
+<Column name="Order_id_Order" id="A13AC59E-8C4B-4B61-5AFF-5F3E3AE0522E">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>A55BFA11-4880-733D-818B-2C2283D9790E</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="62F43809-0ED2-7614-C41A-53AF82B0D723" referredColumn="52F3B696-DBAD-B767-3BF8-D4901AFF711F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1F00E32A-10F3-3C79-7B28-D2CFFBE522B0" name="Detail_PK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>D2701CB2-AF68-6FEF-CF8C-D2073BC4D404</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8CAF664A-35A9-D1E4-C249-7C1F3A238648"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7836D9FC-B3CD-B644-E6F9-7E103449007B" name="Detail_Product_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>27E07424-9565-F9F1-68D1-6654288CE0F6</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FD69293B-16D0-9B9F-BA3D-93A9094099E8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AADC43C9-C55E-6894-33E7-AF782FD3FDEB" name="Detail_Order_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>19C5966D-10A6-0A47-2D00-15251ED4B446</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A13AC59E-8C4B-4B61-5AFF-5F3E3AE0522E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

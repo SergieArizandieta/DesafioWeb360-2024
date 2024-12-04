@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BBC32202-7606-1C6B-DD40-5E4FC2635D71" name="Client">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>449EF752-FF1E-C3A2-FBA1-345B9E36FDBC</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_User" id="1E07177C-BB9A-B108-4412-BC23264CA53C">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>F4B3DCD1-2A93-D12E-FEC2-3DF7436F4EA7</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ABC3FEDE-2B23-CC69-027B-3CBA9762961A" referredColumn="88F72D61-DF41-F286-6DF2-4386042790D8"/>
+</associations>
+</Column>
+<Column name="id_Client" id="8D6BCAD0-64A0-D019-2497-36CBEA0A39A8">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>A3867301-169B-2F84-D7C7-4C95B9B4DCB3</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="source" id="841F21CA-833F-8C40-4CB0-6C0E354F64E8">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>E0E752D7-2DDC-92F1-A626-6E23A6036147</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="reason" id="139C6B6D-C0C2-6B4D-24A6-DC256B4CBE77">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>65B1D1DC-BA66-FD8C-55AE-8E4E678D3A97</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="address" id="3C5C64CE-C80D-FE4A-69E8-CA4CCB9AC594">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>8897A3E6-BFC7-2EB0-1C83-F4ABE366D337</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9BA136CD-B53E-ABAC-FAAB-4CBE78E0F05B" name="Client_PK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>99E1BFD9-0FD7-449A-DA49-153EAE4F4E69</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1E07177C-BB9A-B108-4412-BC23264CA53C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C474E498-7065-FD57-6783-4D7618E804AD" name="Client_PKv1">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>768A180E-BF72-D40E-A88C-1FEA4E283C64</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8D6BCAD0-64A0-D019-2497-36CBEA0A39A8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7C179474-6E99-3810-3E5A-EB4E933AA7D3" name="Client_User_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-04 04:54:12 UTC</createdTime>
+<generatorID>EE1E0C72-C8A8-5AF5-6185-F30152D8D202</generatorID>
+<ownerDesignName>logico</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1E07177C-BB9A-B108-4412-BC23264CA53C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
