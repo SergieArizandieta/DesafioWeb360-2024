@@ -1,4 +1,6 @@
 
+-- ////////////////////////////////////////////////////////////// CREATE TABLES //////////////////////////////////////////////////////////////
+
 CREATE TABLE Rol (
    id_rol INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
    name VARCHAR(50) NOT NULL
@@ -149,5 +151,20 @@ FOREIGN KEY (product_id_product) REFERENCES Product(id_product);
 ALTER TABLE Detail
 ADD CONSTRAINT FK_Detail_Order
 FOREIGN KEY (order_id_order) REFERENCES [Order](id_order);
+
+
+-- ////////////////////////////////////////////////////////////// CREATE STORED PROCEDURES //////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- EXEC sp_helpindex 'Rol';
