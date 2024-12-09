@@ -136,6 +136,7 @@ CREATE TABLE [Order](
    total DECIMAL(18, 2) NOT NULL,
    client_id_client CHAR(13) NOT NULL,
    user_id_user CHAR(13) NOT NULL,
+   status_id_status INT NOT NULL,
 );
 GO
 
@@ -161,6 +162,12 @@ GO
 ALTER TABLE [Order]
 ADD CONSTRAINT FK_Order_User
 FOREIGN KEY (user_id_user) REFERENCES [User](id_userDPI);
+GO
+
+-- add FK: Order - Status relationship
+ALTER TABLE [Order]
+ADD CONSTRAINT FK_Order_Status
+FOREIGN KEY (status_id_status) REFERENCES Status(id_status);
 GO
 
 CREATE TABLE Detail(
@@ -329,12 +336,13 @@ CREATE PROCEDURE sp_InsertOrder
         @total DECIMAL(18, 2),
         @client_id_client CHAR(13),
         @user_id_user CHAR(13),
+        @status_id_status INT,
         @output_message NVARCHAR(MAX) OUTPUT
     AS
     BEGIN
         BEGIN TRY
-            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user)
-            VALUES (@address, @delivery_date, @total, @client_id_client, @user_id_user);
+            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user,status_id_status)
+            VALUES (@address, @delivery_date, @total, @client_id_client, @user_id_user, @status_id_status);
             SET @output_message = 'Inserción realizada exitosamente en Order.';
             RETURN 1; -- Indicar éxito
         END TRY
@@ -607,14 +615,17 @@ CREATE PROCEDURE sp_UpdateOrder
         @delivery_date DATE = NULL,
         @total DECIMAL(18, 2) = NULL,
         @client_id_client CHAR(13) = NULL,
+        @status_id_status INT = NULL,
         @user_id_user CHAR(13) = NULL,
+    
+        
         @output_message NVARCHAR(MAX) OUTPUT
     AS
     BEGIN
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @creation_date IS NOT NULL OR @address IS NOT NULL OR @delivery_date IS NOT NULL OR @total IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL
+            IF @creation_date IS NOT NULL OR @address IS NOT NULL OR @delivery_date IS NOT NULL OR @total IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL OR @status_id_status IS NOT NULL
             BEGIN
                 UPDATE [Order]
                 SET 
@@ -623,7 +634,8 @@ CREATE PROCEDURE sp_UpdateOrder
                     delivery_date = ISNULL(@delivery_date, delivery_date),
                     total = ISNULL(@total, total),
                     client_id_client = ISNULL(@client_id_client, client_id_client),
-                    user_id_user = ISNULL(@user_id_user, user_id_user)
+                    user_id_user = ISNULL(@user_id_user, user_id_user),
+                    status_id_status = ISNULL(@status_id_status, status_id_status)
                 WHERE id_order = @id_order;
                 SET @output_message = 'Actualización realizada exitosamente en Order.';
                 RETURN 1; -- Código de retorno indicando éxito
@@ -788,12 +800,14 @@ CREATE FUNCTION fn_CalculateOrderTotal (
 END;
 GO
 
+
 CREATE PROCEDURE sp_FlowCreateOrder
         -- order params
         @address NVARCHAR(255),
         @delivery_date DATE,
         @client_id_client CHAR(13),
         @user_id_user CHAR(13),
+        @status_id_status INT,
         -- detail params
         @details DetailOrderType READONLY,
         -- output params
@@ -803,8 +817,8 @@ CREATE PROCEDURE sp_FlowCreateOrder
         BEGIN TRANSACTION;
         BEGIN TRY
             -- Insert the order and total 0 for now
-            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user)
-			VALUES (@address, @delivery_date, 0, @client_id_client, @user_id_user);
+            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user,status_id_status)
+			VALUES (@address, @delivery_date, 0, @client_id_client, @user_id_user, @status_id_status);
             
             -- Get the ID of the inserted order
             DECLARE @OrderID INT = SCOPE_IDENTITY();
@@ -1204,6 +1218,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830100',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1212,6 +1227,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1220,6 +1236,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1228,6 +1245,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1236,6 +1254,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1244,6 +1263,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830104',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1252,6 +1272,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830104',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1260,6 +1281,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830103',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1268,6 +1290,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830103',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1276,6 +1299,7 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830103',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
+    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 -- Imprimir el mensaje de salida
 PRINT @OutputMessage;
@@ -1344,6 +1368,7 @@ SELECT * FROM v_TotalOrdenesDiciembre2024;
 GO
 
 --  View C ---------------------------------------------------------------
+-- usando offset y fetch next para paginacion en lugar de top
 CREATE VIEW v_TopClientesMayorConsumo AS
 SELECT 
     c.id_clientDPI,
@@ -1367,8 +1392,9 @@ SELECT * FROM v_TopClientesMayorConsumo;
 GO
 
 --  View D ---------------------------------------------------------------
+-- usando top 10 manera secilla pero no permitiendo paginacion
 CREATE VIEW v_TopProductosMasVendidos AS
-SELECT 
+SELECT TOP 10
     p.id_product,
     p.name AS Producto,
     SUM(d.quantity) AS TotalVendidos
@@ -1379,9 +1405,7 @@ INNER JOIN
 GROUP BY 
     p.id_product, p.name
 ORDER BY 
-    TotalVendidos ASC
-OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
-
+    TotalVendidos ASC;
 GO
 
 SELECT * FROM v_TopProductosMasVendidos;
