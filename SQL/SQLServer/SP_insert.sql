@@ -1,3 +1,5 @@
+-- ////////////////////////////////////////////////////////////// SP Simple Inserts  //////////////////////////////////////////////////////////////
+
 CREATE PROCEDURE sp_InsertRol
         @name NVARCHAR(50),
         @output_message NVARCHAR(MAX) OUTPUT
@@ -53,6 +55,32 @@ END;
 GO
 
 
+CREATE PROCEDURE sp_InsertProduct
+        @name NVARCHAR(50),
+        @brand NVARCHAR(50),
+        @code NVARCHAR(50),
+        @stock INT,
+        @price DECIMAL(18, 2),
+        @picture VARBINARY(MAX),
+        @category_id_category INT,
+        @status_id_status INT,
+        @output_message NVARCHAR(MAX) OUTPUT
+    AS
+    BEGIN
+        BEGIN TRY
+            INSERT INTO Product (name, brand, code, stock, price, picture, category_id_category, status_id_status)
+            VALUES (@name, @brand, @code, @stock, @price, @picture, @category_id_category, @status_id_status);
+            SET @output_message = 'Inserción realizada exitosamente en Product.';
+            RETURN 1; -- Indicar éxito
+        END TRY
+        BEGIN CATCH
+            SET @output_message = ERROR_MESSAGE();
+            RETURN -1; -- Indicar error
+        END CATCH
+END;
+GO
+
+
 CREATE PROCEDURE sp_InsertUser
         @id_userDPI CHAR(13),
         @email NVARCHAR(256),
@@ -91,32 +119,6 @@ CREATE PROCEDURE sp_InsertClient
             INSERT INTO Client (id_clientDPI, source, reason, address)
             VALUES (@id_clientDPI, @source, @reason, @address);
             SET @output_message = 'Inserción realizada exitosamente en Client.';
-            RETURN 1; -- Indicar éxito
-        END TRY
-        BEGIN CATCH
-            SET @output_message = ERROR_MESSAGE();
-            RETURN -1; -- Indicar error
-        END CATCH
-END;
-GO
-
-
-CREATE PROCEDURE sp_InsertProduct
-        @name NVARCHAR(50),
-        @brand NVARCHAR(50),
-        @code NVARCHAR(50),
-        @stock INT,
-        @price DECIMAL(18, 2),
-        @picture VARBINARY(MAX),
-        @category_id_category INT,
-        @status_id_status INT,
-        @output_message NVARCHAR(MAX) OUTPUT
-    AS
-    BEGIN
-        BEGIN TRY
-            INSERT INTO Product (name, brand, code, stock, price, picture, category_id_category, status_id_status)
-            VALUES (@name, @brand, @code, @stock, @price, @picture, @category_id_category, @status_id_status);
-            SET @output_message = 'Inserción realizada exitosamente en Product.';
             RETURN 1; -- Indicar éxito
         END TRY
         BEGIN CATCH

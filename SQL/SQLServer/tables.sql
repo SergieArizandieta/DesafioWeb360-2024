@@ -1,21 +1,20 @@
-
 -- ////////////////////////////////////////////////////////////// CREATE TABLES //////////////////////////////////////////////////////////////
 
 CREATE TABLE Rol (
    id_rol INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   name  NVARCHAR(50) NOT NULL
+   name  NVARCHAR(50) NOT NULL UNIQUE
 );
 GO
 
 CREATE TABLE Status (
    id_status INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   name  NVARCHAR(50) NOT NULL
+   name  NVARCHAR(50) NOT NULL UNIQUE
 );
 GO
 
 CREATE TABLE Category(
    id_category INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   name  NVARCHAR(50) NOT NULL,
+   name  NVARCHAR(50) NOT NULL UNIQUE,
    creation_date DATETIME DEFAULT GETDATE(),
    status_id_status INT NOT NULL,
 );
@@ -29,10 +28,10 @@ GO
 
 CREATE TABLE [User](
    id_userDPI CHAR(13) NOT NULL PRIMARY KEY,
-   email  NVARCHAR(256) NOT NULL,
+   email  NVARCHAR(256) NOT NULL UNIQUE,
    full_name  NVARCHAR(100) NOT NULL,
    password  NVARCHAR(255) NOT NULL,
-   phone CHAR(8) NOT NULL,
+   phone CHAR(8) NOT NULL UNIQUE,
    birth_date DATE NOT NULL,
    creation_date DATETIME DEFAULT GETDATE(),
    status_id_status INT NOT NULL,
@@ -182,19 +181,5 @@ ALTER TABLE Detail
 ADD CONSTRAINT FK_Detail_Order
 FOREIGN KEY (order_id_order) REFERENCES [Order](id_order);
 GO
-
--- ////////////////////////////////////////////////////////////// CREATE STORED PROCEDURES //////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
 
 -- EXEC sp_helpindex 'Rol';
