@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookies());
 
+
+const authRoutes = require("./routes/authRouter");
+
+
 async function initializeDatabase() {
   try {
       await connectToDatabase();
@@ -27,7 +31,6 @@ app.get('/', (req, res) => {
   res.send('¡Hola, mundo! Esto es un backend con Express.');
 });
 
-const authRoutes = require("./routes/authRouter");
 app.use(authRoutes);
 
 initializeDatabase().then(() => {
