@@ -79,14 +79,29 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="id_Status" id="5A8FF5F4-F1D2-129F-4FC0-190FF941AB7B">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-20 04:39:03 UTC</createdTime>
+<generatorID>06F1823D-8CFF-9AD4-BB2E-BE895ACC66AD</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<engineerTo>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+</engineerTo>
+<referedAttribute>4A9F854E-6B92-364E-06A5-6BA7B212D0F6</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="D2701CB2-AF68-6FEF-CF8C-D2073BC4D404" name="Detalle PK">
 <createdBy>SerchiBoi</createdBy>
 <createdTime>2024-12-04 04:21:57 UTC</createdTime>
 <ownerDesignName>conceptual</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="true"/>
+<item key="2762D267-2803-03E5-72FF-55DCDB406FC4" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

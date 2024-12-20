@@ -6,10 +6,10 @@ const connectToDatabase = require("./data/dbConnection");
 
 const express = require('express'); 
 const app = express();            
-
 const cors = require("cors");
 const cookies = require("cookie-parser");
 
+app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookies());
 
@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
   res.send('¡Hola, mundo! Esto es un backend con Express.');
 });
 
+const authRoutes = require("./routes/authRouter");
+app.use(authRoutes);
 
 initializeDatabase().then(() => {
   app.listen(server.port, () => {

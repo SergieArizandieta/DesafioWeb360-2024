@@ -71,6 +71,21 @@
 <colAssociation fkAssociation="62F43809-0ED2-7614-C41A-53AF82B0D723" referredColumn="52F3B696-DBAD-B767-3BF8-D4901AFF711F"/>
 </associations>
 </Column>
+<Column name="Status_id_Status" id="ED506D38-0272-6865-28FC-0E59E6DC7741">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-20 04:40:01 UTC</createdTime>
+<generatorID>5A8FF5F4-F1D2-129F-4FC0-190FF941AB7B</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E298D3F3-3AB0-9456-4304-61B656EE682D" referredColumn="C1C471C6-0196-F461-55FB-78CB68566508"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="1F00E32A-10F3-3C79-7B28-D2CFFBE522B0" name="Detail_PK">
@@ -105,6 +120,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="A13AC59E-8C4B-4B61-5AFF-5F3E3AE0522E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="73582A94-09E6-D38E-4102-A02D455CF5AD" name="Detail_Status_FK">
+<createdBy>SerchiBoi</createdBy>
+<createdTime>2024-12-20 04:40:01 UTC</createdTime>
+<generatorID>06F1823D-8CFF-9AD4-BB2E-BE895ACC66AD</generatorID>
+<ownerDesignName>conceptual</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="ED506D38-0272-6865-28FC-0E59E6DC7741"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
