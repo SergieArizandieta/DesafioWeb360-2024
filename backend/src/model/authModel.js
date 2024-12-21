@@ -1,4 +1,13 @@
+const {models} = require("../types/authTypes");
+
 exports.findOne = async (email) => {
-  console.log("authModel email",email);
-  return email;
+
+  const users = await models.User.findOne({
+    raw: true, 
+    where: {
+      email, 
+    },
+  });
+  
+  return users;
 };

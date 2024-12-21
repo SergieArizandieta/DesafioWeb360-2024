@@ -1,18 +1,20 @@
-const sql = require('mssql');
-const dbConfig = require('../config/dbConfig.js');
-
+const { Sequelize } = require('sequelize');
+const dbConfig = require('../config/dbConfig');
 let connectionPool;
 
 async function connectToDatabase() {
     if (!connectionPool) {
         try {
-            connectionPool = await sql.connect(dbConfig);
+            connectionPool = new Sequelize( dbConfig );
+            await connectionPool.authenticate();
             console.log('Connected to SQL Server!');
         } catch (err) {
             throw err;
         }
     }
-    return connectionPool; // Return the single instance
+    return connectionPool; 
 }
 
 module.exports = connectToDatabase;
+
+

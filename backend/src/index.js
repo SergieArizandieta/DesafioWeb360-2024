@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { server } = require("./config/config");
 const connectToDatabase = require("./data/dbConnection");
-
+const { initModels } = require("./types/authTypes");
 
 const express = require('express'); 
 const app = express();            
@@ -20,6 +20,7 @@ const authRoutes = require("./routes/authRouter");
 async function initializeDatabase() {
   try {
       await connectToDatabase();
+      await initModels();
   } catch (err) {
       console.error('Error al conectar con la base de datos:', err);
       process.exit(1);
