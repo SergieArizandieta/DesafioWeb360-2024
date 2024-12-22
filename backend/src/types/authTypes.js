@@ -18,7 +18,7 @@ const initModels = async () => {
             type: DataTypes.STRING,
         },
         refresh_token: {
-            type: DataTypes.STRING, // Agrega este campo para el token de refresco
+            type: DataTypes.STRING, 
           },
     },{
       freezeTableName: true,
