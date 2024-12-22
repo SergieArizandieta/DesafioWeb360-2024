@@ -10,7 +10,7 @@ exports.login = async (email, password) => {
     
     if (!isValidPassword) throw new Error('Usuario o contraseña incorrectos');
 
-    payload = {id_userDPI:user.id_userDPI,rol_id_rol:user.rol_id_rol};
+    const payload = {id_userDPI:user.id_userDPI,rol_id_rol:user.rol_id_rol};
     const AccJwt = authUtil.generateAccesToken(payload);
     const RefJwt = authUtil.generateRefreshToken(payload);
 

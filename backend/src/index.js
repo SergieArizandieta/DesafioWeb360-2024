@@ -16,6 +16,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(cookies());
 
 app.use("/auth", routers.auth);
+app.use("/product", routers.product);
 
 async function initializeDatabase() {
   try {

@@ -25,8 +25,7 @@ exports.login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000
     });
 
-    message = 'Login successful';
-
+    let message = 'Login successful';
     res.status(200).json({ AccJwt, message });
   } catch (error) {
     console.error('Error in login:', error);
@@ -39,7 +38,7 @@ exports.refreshToken = async (req, res) => {
   const authHeader = req.headers.authorization;
 
   if (!refreshToken && !authHeader) {
-    return res.status(401).json({ message: 'No token provided' });
+    return res.status(400).json({ message: 'No token provided' });
   }
 
   try{
@@ -53,7 +52,7 @@ exports.refreshToken = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000
     });
 
-    message = 'Refresh token successful';
+    let message = 'Refresh token successful';
     res.status(200).json({ AccJwt, message });
   }catch (error) {
     console.error('Error in refreshToken 2:', error);
