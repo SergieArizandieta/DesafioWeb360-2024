@@ -14,7 +14,8 @@ const findOne = async (where, attributes = null) => {
     const user = await models.User.findOne(options);
     return user;
   } catch (error) {
-    throw new Error(`Error al buscar el usuario: ${error.message}`);
+    console.error("Err in findOne: ", error);
+    throw new Error(`Error al buscar el usuario`);
   }
 };
 
@@ -39,6 +40,7 @@ exports.updateRefreshToken = async (email, refresh_token) => {
 
     return updatedRows;
   } catch (error) {
+    console.error("Err in updateRefreshToken: ", error);
     throw new Error(`Error al actualizar el token de refresco: ${error.message}`);
   }
 };

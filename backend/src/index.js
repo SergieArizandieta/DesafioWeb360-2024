@@ -2,8 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { server } = require("./config/config");
 const connectToDatabase = require("./data/dbConnection");
-const { initModels } = require("./types/authTypes");
-
+const initModels = require("./types/index");
 const routers = require("./routes/index");
 
 const express = require('express'); 
@@ -21,13 +20,13 @@ app.use("/product", routers.product);
 async function initializeDatabase() {
   try {
       await connectToDatabase();
-      await initModels();
+      await initModels.auth();
+      await initModels.product();
   } catch (err) {
       console.error('Error al conectar con la base de datos:', err);
       process.exit(1);
   }
 }
-
 
 app.get('/', (req, res) => {
   res.send('¡Hola, mundo! Esto es un backend con Express.');
