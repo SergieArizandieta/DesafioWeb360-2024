@@ -43,8 +43,8 @@ exports.refreshToken = async (req, res) => {
   }
 
   try{
-    const accessToken = authHeader.split(" ")[1];
-    const {AccJwt,RefJwt} = await authService.refreshTokens(refreshToken, accessToken);
+    // const accessToken = authHeader.split(" ")[1];
+    const {AccJwt,RefJwt} = await authService.refreshTokens(refreshToken);
 
     res.cookie('refreshToken', RefJwt, {
       httpOnly: true,

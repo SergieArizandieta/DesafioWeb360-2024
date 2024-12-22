@@ -35,12 +35,8 @@ const verifyRefreshTokenDB = async (payload,refreshToken) => {
   } 
 }
 
-exports.refreshTokens = async (refreshToken, accessToken) => {
+exports.refreshTokens = async (refreshToken) => {
   try {
-
-    const payloadAccess = authUtil.verifyAccessToken(accessToken);
-    // if (payloadAccess) throw new Error('Token still valid');
-
     const payloadRefresh = authUtil.verifyRefreshToken(refreshToken);
     const user = await verifyRefreshTokenDB(payloadRefresh,refreshToken);
 

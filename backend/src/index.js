@@ -4,6 +4,8 @@ const { server } = require("./config/config");
 const connectToDatabase = require("./data/dbConnection");
 const { initModels } = require("./types/authTypes");
 
+const routers = require("./routes/index");
+
 const express = require('express'); 
 const app = express();            
 const cors = require("cors");
@@ -13,9 +15,7 @@ app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookies());
 
-
-const authRoutes = require("./routes/authRouter");
-
+app.use("/auth", routers.auth);
 
 async function initializeDatabase() {
   try {
@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
   res.send('¡Hola, mundo! Esto es un backend con Express.');
 });
 
-app.use(authRoutes);
 
 initializeDatabase().then(() => {
   app.listen(server.port, () => {
