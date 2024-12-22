@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require('jsonwebtoken');
 
 async function hashPassword(password) {
    try {
@@ -23,4 +24,32 @@ async function verifyPassword(password, storedHash) {
    }
 }
 
-module.exports = { hashPassword, verifyPassword };
+function generateAccesToken(payload) {
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+}
+
+function generateRefreshToken(payload) {
+  return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '24h' }); 
+}
+
+function verifyAccessToken(token) {
+  return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+}
+
+function verifyRefreshToken(token) {
+  return jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+}
+
+function updateRefreshToken(payload,token) {
+   return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: token.exp - Math.floor(Date.now() / 1000) });
+}
+
+module.exports = { 
+   hashPassword,
+   verifyPassword,
+   generateAccesToken,
+   generateRefreshToken,
+   verifyAccessToken,
+   verifyRefreshToken,
+   updateRefreshToken
+ };

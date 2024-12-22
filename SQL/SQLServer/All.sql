@@ -37,6 +37,7 @@ GO
 CREATE TABLE [User](
    id_userDPI CHAR(13) NOT NULL PRIMARY KEY,
    email  NVARCHAR(256) NOT NULL UNIQUE,
+   refresh_token NVARCHAR(255) NOT NULL,
    full_name  NVARCHAR(100) NOT NULL,
    password  NVARCHAR(255) NOT NULL,
    phone CHAR(8) NOT NULL UNIQUE,
@@ -288,8 +289,8 @@ CREATE PROCEDURE sp_InsertUser
     AS
     BEGIN
         BEGIN TRY
-            INSERT INTO [User] (id_userDPI, email, full_name, password, phone, birth_date, status_id_status, rol_id_rol)
-            VALUES (@id_userDPI, @email, @full_name, @password, @phone, @birth_date, @status_id_status, @rol_id_rol);
+            INSERT INTO [User] (id_userDPI, email, refresh_token, full_name, password, phone, birth_date, status_id_status, rol_id_rol)
+            VALUES (@id_userDPI, @email, '', @full_name, @password, @phone, @birth_date, @status_id_status, @rol_id_rol);
             SET @output_message = 'Inserción realizada exitosamente en User.';
             RETURN 1; -- Indicar éxito
         END TRY
@@ -1027,7 +1028,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830100',
     @email = 'sergie1@gmail.com',
     @full_name = 'Sergio Pérez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55512345',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1040,7 +1041,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830101',
     @email = 'sergie2@gmail.com',
     @full_name = 'Carlos Hernández',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55567890',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1053,7 +1054,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830102',
     @email = 'sergie3@gmail.com',
     @full_name = 'Ana García',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55598765',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1066,7 +1067,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830103',
     @email = 'sergie4@gmail.com',
     @full_name = 'Lucía Gómez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55565432',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1079,7 +1080,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830104',
     @email = 'sergie5@gmail.com',
     @full_name = 'Miguel Torres',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55532100',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1099,7 +1100,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830100',
     @email = 'daniel1@gmail.com',
     @full_name = 'Daniel López',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '12345678',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1115,7 +1116,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830101',
     @email = 'daniel2@gmail.com',
     @full_name = 'Ana Torres',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '87654321',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1131,7 +1132,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830102',
     @email = 'daniel3@gmail.com',
     @full_name = 'Carlos Martínez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55667788',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1147,7 +1148,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830103',
     @email = 'daniel4@gmail.com',
     @full_name = 'Lucía Gómez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '66778899',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1163,7 +1164,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830104',
     @email = 'daniel5@gmail.com',
     @full_name = 'María Fernández',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '77889900',
     @birth_date = '2002-05-22',
     @status_id_status = 1,

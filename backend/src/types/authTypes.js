@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const connectToDatabase = require('../data/dbConnection');
-const { password } = require('../config/dbConfig');
 
 let models = {};
 
@@ -18,6 +17,9 @@ const initModels = async () => {
         password: {
             type: DataTypes.STRING,
         },
+        refresh_token: {
+            type: DataTypes.STRING, // Agrega este campo para el token de refresco
+          },
     },{
       freezeTableName: true,
       timestamps: false,
