@@ -35,7 +35,7 @@ exports.read = async (req, res) => {
         const message = "Productos encontrados exitosamente";
         res.status(200).json({ message: message, data: result });
     } catch (err) {
-        console.error("Error in create:", err);
+        console.error("Error in read:", err);
         res.status(500).json({ message: err.message });
     }
    
@@ -117,7 +117,7 @@ exports.update = async (req, res) => {
         const result = await categoryService.update(category);
         res.status(200).json({ message: result });
     } catch (err) {
-        console.error("Error in create:", err);
+        console.error("Error in update:", err);
         res.status(500).json({ message: err.message });
     }
 };
