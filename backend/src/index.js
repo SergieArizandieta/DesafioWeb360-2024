@@ -31,6 +31,7 @@ async function initializeDatabase() {
       await initModels.category();
       await initModels.status();
       await initModels.user();
+      await initModels.client();
       await initModels.UserClient();
   } catch (err) {
       console.error('Error al conectar con la base de datos:', err);

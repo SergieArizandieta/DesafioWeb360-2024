@@ -14,6 +14,20 @@ exports.create = async (client) => {
     }
 }; 
 
+
+exports.read = async (query) => {
+    try {
+        
+        let resultRead = await clientModel.getClients(query);
+
+        return resultRead;
+
+    } catch (err) {
+        throw err;
+    }
+};
+     
+
 exports.update = async (client) => {
     try {
         if(client.password)

@@ -1,8 +1,10 @@
-const userModel = require('../userTypes');
-const clientModel = require('../clientTypes');
+const userModel = require('../userTypes').models;
+const clientModel = require('../clientTypes').models;
 
-const initializeDatabase = async () => {
+
+const initRelationShip = async () => {
    try {
+
       userModel.User.hasOne(clientModel.Client, {
          foreignKey: 'id_clientDPI',
          as: 'client',
@@ -19,4 +21,4 @@ const initializeDatabase = async () => {
 
 };
 
-module.exports = { initializeDatabase };
+module.exports = { initRelationShip };

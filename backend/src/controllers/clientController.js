@@ -79,13 +79,13 @@ exports.read = async (req, res) => {
     if (!refreshToken && !authHeader)
         return res.status(400).json({ message: 'No token provided' });
     
-    try{
-        const accessToken = authHeader.split(" ")[1];
-        authUtil.verifyAccessToken(accessToken);
-    }catch (error) {
-        console.error('Error in create: Token expired:', error);
-        return res.status(401).json({ message: error.message });
-    }
+   //  try{
+   //      const accessToken = authHeader.split(" ")[1];
+   //      authUtil.verifyAccessToken(accessToken);
+   //  }catch (error) {
+   //      console.error('Error in create: Token expired:', error);
+   //      return res.status(401).json({ message: error.message });
+   //  }
 
     try {
         const { 

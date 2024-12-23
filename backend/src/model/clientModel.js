@@ -1,5 +1,36 @@
 const connectToDatabase = require("../data/dbConnection");
+const userModel = require('../types/userTypes').models;
+const clientModel = require('../types/clientTypes').models;
 
+exports.getClients = async (query) => {
+   try {
+      const sequelize = await connectToDatabase();
+      const offset = (query.page - 1) * query.limit;
+
+      let where = query.filterValue
+         ? {
+              [query.filterBy]: {
+                 [sequelize.Op.like]: `%${query.filterValue}%`,
+              },
+           }
+         : {};
+      where = { ...where, rol_id_rol: 1 };
+
+      const categories = await userModel.User.findAndCountAll({
+         where,
+         raw: true,
+         order: [[query.sortBy, query.sortOrder.toUpperCase()]],
+         limit: parseInt(query.limit),
+         offset: parseInt(offset),
+         include: { model: clientModel.Client, as: 'client' },
+      });
+    
+      return categories;
+   } catch (error) {
+      console.error("Error en getUsers:", error);
+      throw new Error(`Error al obtener los productos`);
+   }
+};
 
 
 exports.sp_FlowUpdateClient = async (user) => {
