@@ -32,7 +32,7 @@ exports.read = async (req, res) => {
         };
 
         const result = await categoryService.read(query);
-        const message = "Productos encontrados exitosamente";
+        const message = "Categorias encontrados exitosamente";
         res.status(200).json({ message: message, data: result });
     } catch (err) {
         console.error("Error in read:", err);

@@ -29,6 +29,9 @@ exports.read = async (query) => {
      
 exports.update = async (user) => {
     try {
+        if(user.password)
+            user.password = await  authUtil.hashPassword(user.password);
+        
         const resultUpdate = await userModel.sp_UpdateUser(user);
         
         if (!resultUpdate.success) throw new Error(resultUpdate.message);

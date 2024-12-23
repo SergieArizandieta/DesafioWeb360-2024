@@ -477,7 +477,6 @@ CREATE PROCEDURE sp_UpdateUser
         @password NVARCHAR(255) = NULL,
         @phone CHAR(8) = NULL,
         @birth_date DATE = NULL,
-        @creation_date DATETIME = NULL,
         @status_id_status INT = NULL,
         @rol_id_rol INT = NULL,
         @output_message NVARCHAR(MAX) OUTPUT
@@ -486,7 +485,7 @@ CREATE PROCEDURE sp_UpdateUser
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @email IS NOT NULL OR @full_name IS NOT NULL OR @password IS NOT NULL OR @phone IS NOT NULL OR @birth_date IS NOT NULL OR @creation_date IS NOT NULL OR @status_id_status IS NOT NULL OR @rol_id_rol IS NOT NULL
+            IF @email IS NOT NULL OR @full_name IS NOT NULL OR @password IS NOT NULL OR @phone IS NOT NULL OR @birth_date IS NOT NULL OR @status_id_status IS NOT NULL OR @rol_id_rol IS NOT NULL
             BEGIN
                 UPDATE [User]
                 SET 
@@ -495,7 +494,6 @@ CREATE PROCEDURE sp_UpdateUser
                     password = ISNULL(@password, password),
                     phone = ISNULL(@phone, phone),
                     birth_date = ISNULL(@birth_date, birth_date),
-                    creation_date = ISNULL(@creation_date, creation_date),
                     status_id_status = ISNULL(@status_id_status, status_id_status),
                     rol_id_rol = ISNULL(@rol_id_rol, rol_id_rol)
                 WHERE id_userDPI = @id_userDPI;
@@ -518,7 +516,6 @@ GO
 
 CREATE PROCEDURE sp_UpdateClient
         @id_clientDPI CHAR(13),
-        @id_client INT = NULL,
         @source NVARCHAR(50) = NULL,
         @reason NVARCHAR(255) = NULL,
         @address NVARCHAR(255) = NULL,
@@ -528,7 +525,7 @@ CREATE PROCEDURE sp_UpdateClient
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @id_client IS NOT NULL OR @source IS NOT NULL OR @reason IS NOT NULL OR @address IS NOT NULL
+            IF @source IS NOT NULL OR @reason IS NOT NULL OR @address IS NOT NULL
             BEGIN
                 UPDATE Client
                 SET 
@@ -746,6 +743,76 @@ CREATE PROCEDURE sp_FlowCreateClient
         END TRY
         BEGIN CATCH
 			IF XACT_STATE() <> 0
+                ROLLBACK TRANSACTION;
+            SET @output_message = ERROR_MESSAGE();
+            RETURN -1; -- Indicar error
+        END CATCH
+END;
+GO
+CREATE PROCEDURE sp_FlowUpdateClient
+        -- user params
+        @id_userDPI CHAR(13),
+        @email NVARCHAR(256) = NULL,
+        @full_name NVARCHAR(100) = NULL,
+        @password NVARCHAR(255) = NULL,
+        @phone CHAR(8) = NULL,
+        @birth_date DATE = NULL,
+        @status_id_status INT = NULL,
+        @rol_id_rol INT = NULL,
+        -- client params
+        @source NVARCHAR(50) = NULL,
+        @reason NVARCHAR(255) = NULL,
+        @address NVARCHAR(255) = NULL,
+        -- output params
+        @output_message NVARCHAR(MAX) OUTPUT
+    AS
+    BEGIN
+    BEGIN TRANSACTION;
+    BEGIN TRY
+
+        DECLARE @return_code INT;
+        DECLARE @inner_message NVARCHAR(MAX);
+
+        -- Update User
+       
+         EXEC @return_code = sp_UpdateUser
+            @id_userDPI,
+            @email,
+            @full_name,
+            @password,
+            @phone,
+            @birth_date,
+            @status_id_status,
+            @rol_id_rol,
+            @inner_message OUTPUT;
+
+        IF @return_code <> 1
+        BEGIN
+            SET @output_message = 'Error al actualizar usuario: ' + @inner_message;
+            THROW 50001, @output_message, -2; -- Código de error y estado personalizado  
+        END
+
+        -- Update Client
+        EXEC @return_code = sp_UpdateClient
+            @id_userDPI,
+            @source,
+            @reason,
+            @address,
+            @inner_message OUTPUT;
+        
+        IF @return_code <> 1
+        BEGIN
+            SET @output_message = 'Error al actualizar cliente: ' + @inner_message;
+            THROW 50002, @output_message, -3; -- Código de error y estado personalizado  
+        END
+
+        COMMIT TRANSACTION;
+        SET @output_message = 'Actualización realizada exitosamente en User y Client.';
+        RETURN 1; -- Indicar éxito
+            
+        END TRY
+        BEGIN CATCH
+            IF XACT_STATE() <> 0
                 ROLLBACK TRANSACTION;
             SET @output_message = ERROR_MESSAGE();
             RETURN -1; -- Indicar error

@@ -1,6 +1,5 @@
-const userService = require("../services/userService.js");
+const clientService = require("../services/clientService.js");
 const authUtil = require("../utils/authUtil.js");
-
 
 
 exports.create = async (req, res) => {
@@ -30,6 +29,9 @@ exports.create = async (req, res) => {
             phone,
             birth_date,
             status_id_status,
+            source,
+            reason,
+            address,
         } = req.body;
 
         if (
@@ -39,13 +41,16 @@ exports.create = async (req, res) => {
             password === undefined ||
             phone === undefined ||
             birth_date === undefined ||
-            status_id_status === undefined
+            status_id_status === undefined ||
+            source === undefined ||
+            reason === undefined ||
+            address === undefined
         )
             return res
                 .status(400)
                 .json({ message: "Missing required information" });
 
-        const user = {
+        const client = {
             id_userDPI,
             email,
             full_name,
@@ -53,9 +58,12 @@ exports.create = async (req, res) => {
             phone,
             birth_date,
             status_id_status,
+            source,
+            reason,
+            address,
         };
 
-        const result = await userService.create(user);
+        const result = await clientService.create(client);
         res.status(200).json({ message: result });
     } catch (err) {
         console.error("Error in create:", err);
@@ -98,8 +106,8 @@ exports.read = async (req, res) => {
             limit
         };
 
-        const result = await userService.read(query);
-        const message = "Usuarios encontrados exitosamente";
+        const result = await clientService.read(query);
+        const message = "Clientes encontrados exitosamente";
         res.status(200).json({ message: message, data: result });
     } catch (err) {
         console.error("Error in read:", err);
@@ -107,7 +115,6 @@ exports.read = async (req, res) => {
     }
    
 };
-
 
 exports.update = async (req, res) => {
     const { refreshToken } = req.cookies;
@@ -136,6 +143,9 @@ exports.update = async (req, res) => {
             phone = null,
             birth_date = null,
             status_id_status = null,
+            source = null,
+            reason = null,
+            address = null,
         } = req.body;
 
         if (id_userDPI === undefined)
@@ -143,7 +153,7 @@ exports.update = async (req, res) => {
                 .status(400)
                 .json({ message: "Missing required information" });
 
-        const user = {
+        const client = {
             id_userDPI,
             email,
             full_name,
@@ -151,12 +161,15 @@ exports.update = async (req, res) => {
             phone,
             birth_date,
             status_id_status,
+            source,
+            reason,
+            address,
         };
 
-        const result = await userService.update(user);
+        const result = await clientService.update(client);
         res.status(200).json({ message: result });
     } catch (err) {
-        console.error("Error in update:", err);
+        console.error("Error in create:", err);
         res.status(500).json({ message: err.message });
     }
 };

@@ -1,4 +1,5 @@
 const statusService = require("../services/statusService");
+const authUtil = require("../utils/authUtil.js");
 
 exports.create = async (req, res) => {
     const { refreshToken } = req.cookies;
@@ -46,13 +47,13 @@ exports.read = async (req, res) => {
     if (!refreshToken && !authHeader)
         return res.status(400).json({ message: 'No token provided' });
     
-    // try{
-    //     const accessToken = authHeader.split(" ")[1];
-    //     authUtil.verifyAccessToken(accessToken);
-    // }catch (error) {
-    //     console.error('Error in create: Token expired:', error);
-    //     return res.status(401).json({ message: error.message });
-    // }
+    try{
+        const accessToken = authHeader.split(" ")[1];
+        authUtil.verifyAccessToken(accessToken);
+    }catch (error) {
+        console.error('Error in create: Token expired:', error);
+        return res.status(401).json({ message: error.message });
+    }
 
     try {
         const { 
@@ -70,7 +71,7 @@ exports.read = async (req, res) => {
         };
 
         const result = await statusService.read(query);
-        const message = "Productos encontrados exitosamente";
+        const message = "Estado encontrados exitosamente";
         res.status(200).json({ message: message, data: result });
     } catch (err) {
         console.error("Error in create:", err);

@@ -3,6 +3,7 @@ const productRouter = require("./productRouter");
 const categoryRouter = require("./categoryRouter");
 const statusRouter = require("./statusRouter");
 const userRouter = require("./userRouter");
+const clientRouter = require("./clientRouter");
 
 const routers = {
     auth: authRouter,
@@ -10,6 +11,7 @@ const routers = {
     category: categoryRouter,
     status: statusRouter,
     user: userRouter,
+    client: clientRouter,
 };
 
 module.exports = routers;
