@@ -37,6 +37,7 @@ GO
 CREATE TABLE [User](
    id_userDPI CHAR(13) NOT NULL PRIMARY KEY,
    email  NVARCHAR(256) NOT NULL UNIQUE,
+   refresh_token NVARCHAR(255) NOT NULL,
    full_name  NVARCHAR(100) NOT NULL,
    password  NVARCHAR(255) NOT NULL,
    phone CHAR(8) NOT NULL UNIQUE,
@@ -136,7 +137,6 @@ CREATE TABLE [Order](
    total DECIMAL(18, 2) NOT NULL,
    client_id_client CHAR(13) NOT NULL,
    user_id_user CHAR(13) NOT NULL,
-   status_id_status INT NOT NULL,
 );
 GO
 
@@ -162,12 +162,6 @@ GO
 ALTER TABLE [Order]
 ADD CONSTRAINT FK_Order_User
 FOREIGN KEY (user_id_user) REFERENCES [User](id_userDPI);
-GO
-
--- add FK: Order - Status relationship
-ALTER TABLE [Order]
-ADD CONSTRAINT FK_Order_Status
-FOREIGN KEY (status_id_status) REFERENCES Status(id_status);
 GO
 
 CREATE TABLE Detail(
@@ -295,8 +289,8 @@ CREATE PROCEDURE sp_InsertUser
     AS
     BEGIN
         BEGIN TRY
-            INSERT INTO [User] (id_userDPI, email, full_name, password, phone, birth_date, status_id_status, rol_id_rol)
-            VALUES (@id_userDPI, @email, @full_name, @password, @phone, @birth_date, @status_id_status, @rol_id_rol);
+            INSERT INTO [User] (id_userDPI, email, refresh_token, full_name, password, phone, birth_date, status_id_status, rol_id_rol)
+            VALUES (@id_userDPI, @email, '', @full_name, @password, @phone, @birth_date, @status_id_status, @rol_id_rol);
             SET @output_message = 'Inserción realizada exitosamente en User.';
             RETURN 1; -- Indicar éxito
         END TRY
@@ -336,13 +330,12 @@ CREATE PROCEDURE sp_InsertOrder
         @total DECIMAL(18, 2),
         @client_id_client CHAR(13),
         @user_id_user CHAR(13),
-        @status_id_status INT,
         @output_message NVARCHAR(MAX) OUTPUT
     AS
     BEGIN
         BEGIN TRY
-            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user,status_id_status)
-            VALUES (@address, @delivery_date, @total, @client_id_client, @user_id_user, @status_id_status);
+            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user)
+            VALUES (@address, @delivery_date, @total, @client_id_client, @user_id_user);
             SET @output_message = 'Inserción realizada exitosamente en Order.';
             RETURN 1; -- Indicar éxito
         END TRY
@@ -484,7 +477,6 @@ CREATE PROCEDURE sp_UpdateUser
         @password NVARCHAR(255) = NULL,
         @phone CHAR(8) = NULL,
         @birth_date DATE = NULL,
-        @creation_date DATETIME = NULL,
         @status_id_status INT = NULL,
         @rol_id_rol INT = NULL,
         @output_message NVARCHAR(MAX) OUTPUT
@@ -493,7 +485,7 @@ CREATE PROCEDURE sp_UpdateUser
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @email IS NOT NULL OR @full_name IS NOT NULL OR @password IS NOT NULL OR @phone IS NOT NULL OR @birth_date IS NOT NULL OR @creation_date IS NOT NULL OR @status_id_status IS NOT NULL OR @rol_id_rol IS NOT NULL
+            IF @email IS NOT NULL OR @full_name IS NOT NULL OR @password IS NOT NULL OR @phone IS NOT NULL OR @birth_date IS NOT NULL OR @status_id_status IS NOT NULL OR @rol_id_rol IS NOT NULL
             BEGIN
                 UPDATE [User]
                 SET 
@@ -502,7 +494,6 @@ CREATE PROCEDURE sp_UpdateUser
                     password = ISNULL(@password, password),
                     phone = ISNULL(@phone, phone),
                     birth_date = ISNULL(@birth_date, birth_date),
-                    creation_date = ISNULL(@creation_date, creation_date),
                     status_id_status = ISNULL(@status_id_status, status_id_status),
                     rol_id_rol = ISNULL(@rol_id_rol, rol_id_rol)
                 WHERE id_userDPI = @id_userDPI;
@@ -525,7 +516,6 @@ GO
 
 CREATE PROCEDURE sp_UpdateClient
         @id_clientDPI CHAR(13),
-        @id_client INT = NULL,
         @source NVARCHAR(50) = NULL,
         @reason NVARCHAR(255) = NULL,
         @address NVARCHAR(255) = NULL,
@@ -535,7 +525,7 @@ CREATE PROCEDURE sp_UpdateClient
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @id_client IS NOT NULL OR @source IS NOT NULL OR @reason IS NOT NULL OR @address IS NOT NULL
+            IF @source IS NOT NULL OR @reason IS NOT NULL OR @address IS NOT NULL
             BEGIN
                 UPDATE Client
                 SET 
@@ -615,17 +605,14 @@ CREATE PROCEDURE sp_UpdateOrder
         @delivery_date DATE = NULL,
         @total DECIMAL(18, 2) = NULL,
         @client_id_client CHAR(13) = NULL,
-        @status_id_status INT = NULL,
         @user_id_user CHAR(13) = NULL,
-    
-        
         @output_message NVARCHAR(MAX) OUTPUT
     AS
     BEGIN
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @creation_date IS NOT NULL OR @address IS NOT NULL OR @delivery_date IS NOT NULL OR @total IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL OR @status_id_status IS NOT NULL
+            IF @creation_date IS NOT NULL OR @address IS NOT NULL OR @delivery_date IS NOT NULL OR @total IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL
             BEGIN
                 UPDATE [Order]
                 SET 
@@ -634,8 +621,7 @@ CREATE PROCEDURE sp_UpdateOrder
                     delivery_date = ISNULL(@delivery_date, delivery_date),
                     total = ISNULL(@total, total),
                     client_id_client = ISNULL(@client_id_client, client_id_client),
-                    user_id_user = ISNULL(@user_id_user, user_id_user),
-                    status_id_status = ISNULL(@status_id_status, status_id_status)
+                    user_id_user = ISNULL(@user_id_user, user_id_user)
                 WHERE id_order = @id_order;
                 SET @output_message = 'Actualización realizada exitosamente en Order.';
                 RETURN 1; -- Código de retorno indicando éxito
@@ -763,6 +749,76 @@ CREATE PROCEDURE sp_FlowCreateClient
         END CATCH
 END;
 GO
+CREATE PROCEDURE sp_FlowUpdateClient
+        -- user params
+        @id_userDPI CHAR(13),
+        @email NVARCHAR(256) = NULL,
+        @full_name NVARCHAR(100) = NULL,
+        @password NVARCHAR(255) = NULL,
+        @phone CHAR(8) = NULL,
+        @birth_date DATE = NULL,
+        @status_id_status INT = NULL,
+        @rol_id_rol INT = NULL,
+        -- client params
+        @source NVARCHAR(50) = NULL,
+        @reason NVARCHAR(255) = NULL,
+        @address NVARCHAR(255) = NULL,
+        -- output params
+        @output_message NVARCHAR(MAX) OUTPUT
+    AS
+    BEGIN
+    BEGIN TRANSACTION;
+    BEGIN TRY
+
+        DECLARE @return_code INT;
+        DECLARE @inner_message NVARCHAR(MAX);
+
+        -- Update User
+       
+         EXEC @return_code = sp_UpdateUser
+            @id_userDPI,
+            @email,
+            @full_name,
+            @password,
+            @phone,
+            @birth_date,
+            @status_id_status,
+            @rol_id_rol,
+            @inner_message OUTPUT;
+
+        IF @return_code <> 1
+        BEGIN
+            SET @output_message = 'Error al actualizar usuario: ' + @inner_message;
+            THROW 50001, @output_message, -2; -- Código de error y estado personalizado  
+        END
+
+        -- Update Client
+        EXEC @return_code = sp_UpdateClient
+            @id_userDPI,
+            @source,
+            @reason,
+            @address,
+            @inner_message OUTPUT;
+        
+        IF @return_code <> 1
+        BEGIN
+            SET @output_message = 'Error al actualizar cliente: ' + @inner_message;
+            THROW 50002, @output_message, -3; -- Código de error y estado personalizado  
+        END
+
+        COMMIT TRANSACTION;
+        SET @output_message = 'Actualización realizada exitosamente en User y Client.';
+        RETURN 1; -- Indicar éxito
+            
+        END TRY
+        BEGIN CATCH
+            IF XACT_STATE() <> 0
+                ROLLBACK TRANSACTION;
+            SET @output_message = ERROR_MESSAGE();
+            RETURN -1; -- Indicar error
+        END CATCH
+END;
+GO
 
 
 CREATE TYPE DetailOrderType AS TABLE (
@@ -800,14 +856,12 @@ CREATE FUNCTION fn_CalculateOrderTotal (
 END;
 GO
 
-
 CREATE PROCEDURE sp_FlowCreateOrder
         -- order params
         @address NVARCHAR(255),
         @delivery_date DATE,
         @client_id_client CHAR(13),
         @user_id_user CHAR(13),
-        @status_id_status INT,
         -- detail params
         @details DetailOrderType READONLY,
         -- output params
@@ -817,8 +871,8 @@ CREATE PROCEDURE sp_FlowCreateOrder
         BEGIN TRANSACTION;
         BEGIN TRY
             -- Insert the order and total 0 for now
-            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user,status_id_status)
-			VALUES (@address, @delivery_date, 0, @client_id_client, @user_id_user, @status_id_status);
+            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user)
+			VALUES (@address, @delivery_date, 0, @client_id_client, @user_id_user);
             
             -- Get the ID of the inserted order
             DECLARE @OrderID INT = SCOPE_IDENTITY();
@@ -1041,7 +1095,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830100',
     @email = 'sergie1@gmail.com',
     @full_name = 'Sergio Pérez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55512345',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1054,7 +1108,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830101',
     @email = 'sergie2@gmail.com',
     @full_name = 'Carlos Hernández',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55567890',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1067,7 +1121,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830102',
     @email = 'sergie3@gmail.com',
     @full_name = 'Ana García',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55598765',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1080,7 +1134,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830103',
     @email = 'sergie4@gmail.com',
     @full_name = 'Lucía Gómez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55565432',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1093,7 +1147,7 @@ EXEC sp_InsertUser
     @id_userDPI = '1000523830104',
     @email = 'sergie5@gmail.com',
     @full_name = 'Miguel Torres',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55532100',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1113,7 +1167,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830100',
     @email = 'daniel1@gmail.com',
     @full_name = 'Daniel López',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '12345678',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1129,7 +1183,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830101',
     @email = 'daniel2@gmail.com',
     @full_name = 'Ana Torres',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '87654321',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1145,7 +1199,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830102',
     @email = 'daniel3@gmail.com',
     @full_name = 'Carlos Martínez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '55667788',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1161,7 +1215,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830103',
     @email = 'daniel4@gmail.com',
     @full_name = 'Lucía Gómez',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '66778899',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1177,7 +1231,7 @@ EXEC sp_FlowCreateClient
     @id_userDPI = '2000523830104',
     @email = 'daniel5@gmail.com',
     @full_name = 'María Fernández',
-    @password = 'password123',
+    @password = '$argon2id$v=19$m=65536,t=3,p=2$lVCtnRzRO6/cpClaTrrDAw$9pOYySzpIR2SG5Rkps77NUqN6AU/OHqUmgJTeau1r/4',
     @phone = '77889900',
     @birth_date = '2002-05-22',
     @status_id_status = 1,
@@ -1218,7 +1272,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830100',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1227,7 +1280,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1236,7 +1288,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1245,7 +1296,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1254,7 +1304,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830101',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1263,7 +1312,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830104',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1272,7 +1320,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830104',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1281,7 +1328,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830103',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1290,7 +1336,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830103',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 
 EXEC sp_FlowCreateOrder 
@@ -1299,7 +1344,6 @@ EXEC sp_FlowCreateOrder
     @client_id_client = '2000523830103',
     @user_id_user = '1000523830100',
     @details = @OrderDetails,
-    @status_id_status = 1,
     @output_message = @OutputMessage OUTPUT;
 -- Imprimir el mensaje de salida
 PRINT @OutputMessage;
@@ -1368,7 +1412,6 @@ SELECT * FROM v_TotalOrdenesDiciembre2024;
 GO
 
 --  View C ---------------------------------------------------------------
--- usando offset y fetch next para paginacion en lugar de top
 CREATE VIEW v_TopClientesMayorConsumo AS
 SELECT 
     c.id_clientDPI,
@@ -1392,9 +1435,8 @@ SELECT * FROM v_TopClientesMayorConsumo;
 GO
 
 --  View D ---------------------------------------------------------------
--- usando top 10 manera secilla pero no permitiendo paginacion
 CREATE VIEW v_TopProductosMasVendidos AS
-SELECT TOP 10
+SELECT 
     p.id_product,
     p.name AS Producto,
     SUM(d.quantity) AS TotalVendidos
@@ -1405,7 +1447,9 @@ INNER JOIN
 GROUP BY 
     p.id_product, p.name
 ORDER BY 
-    TotalVendidos ASC;
+    TotalVendidos ASC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
 GO
 
 SELECT * FROM v_TopProductosMasVendidos;
