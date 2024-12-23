@@ -17,6 +17,9 @@ app.use(cookies());
 app.use("/auth", routers.auth);
 app.use("/product", routers.product);
 app.use("/category", routers.category);
+app.use("/status", routers.status);
+
+
 
 async function initializeDatabase() {
   try {
@@ -24,6 +27,7 @@ async function initializeDatabase() {
       await initModels.auth();
       await initModels.product();
       await initModels.category();
+      await initModels.status();
   } catch (err) {
       console.error('Error al conectar con la base de datos:', err);
       process.exit(1);
