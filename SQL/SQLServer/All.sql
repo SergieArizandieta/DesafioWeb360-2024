@@ -600,10 +600,8 @@ GO
 
 CREATE PROCEDURE sp_UpdateOrder
         @id_order INT,
-        @creation_date DATETIME = NULL,
         @address NVARCHAR(255) = NULL,
         @delivery_date DATE = NULL,
-        @total DECIMAL(18, 2) = NULL,
         @client_id_client CHAR(13) = NULL,
         @user_id_user CHAR(13) = NULL,
         @output_message NVARCHAR(MAX) OUTPUT
@@ -612,14 +610,12 @@ CREATE PROCEDURE sp_UpdateOrder
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @creation_date IS NOT NULL OR @address IS NOT NULL OR @delivery_date IS NOT NULL OR @total IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL
+            IF @address IS NOT NULL OR @delivery_date IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL
             BEGIN
                 UPDATE [Order]
                 SET 
-                    creation_date = ISNULL(@creation_date, creation_date),
                     address = ISNULL(@address, address),
                     delivery_date = ISNULL(@delivery_date, delivery_date),
-                    total = ISNULL(@total, total),
                     client_id_client = ISNULL(@client_id_client, client_id_client),
                     user_id_user = ISNULL(@user_id_user, user_id_user)
                 WHERE id_order = @id_order;

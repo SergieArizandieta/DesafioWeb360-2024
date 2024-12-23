@@ -4,6 +4,8 @@ const categoryRouter = require("./categoryRouter");
 const statusRouter = require("./statusRouter");
 const userRouter = require("./userRouter");
 const clientRouter = require("./clientRouter");
+const orderRouter = require("./orderRouter");
+
 
 const routers = {
     auth: authRouter,
@@ -12,6 +14,7 @@ const routers = {
     status: statusRouter,
     user: userRouter,
     client: clientRouter,
+    order: orderRouter
 };
 
 module.exports = routers;

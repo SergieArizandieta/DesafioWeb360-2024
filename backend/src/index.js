@@ -20,7 +20,8 @@ app.use("/category", routers.category);
 app.use("/status", routers.status);
 app.use("/user", routers.user);
 app.use("/client", routers.client);
-
+app.use("/order", routers.order);
+    
 
 
 async function initializeDatabase() {
@@ -33,6 +34,7 @@ async function initializeDatabase() {
       await initModels.user();
       await initModels.client();
       await initModels.UserClient();
+      await initModels.order();
   } catch (err) {
       console.error('Error al conectar con la base de datos:', err);
       process.exit(1);
