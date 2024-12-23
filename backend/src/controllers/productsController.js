@@ -78,7 +78,7 @@ exports.update = async (req, res) => {
             status_id_status = null,
         } = req.body;
 
-        if (!id_product)
+        if (id_product === undefined)
             return res.status(400).json({ message: "Missing required information" });
 
         const product = {
@@ -136,15 +136,15 @@ exports.create = async (req, res) => {
         } = req.body;
 
         if (
-            !name ||
-            !brand ||
-            !code ||
-            !stock ||
-            !price ||
-            !creation_date ||
-            !picture ||
-            !category_id_category ||
-            !status_id_status
+            name === undefined ||
+            brand === undefined ||
+            code === undefined ||
+            stock === undefined ||
+            price === undefined ||
+            creation_date === undefined ||
+            picture === undefined ||
+            category_id_category === undefined ||
+            status_id_status === undefined
         )
             return res.status(400).json({ message: "Missing required information" });
 
