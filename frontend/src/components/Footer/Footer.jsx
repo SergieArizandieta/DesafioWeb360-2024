@@ -10,7 +10,7 @@ export default function Footer() {
    }
 
    return (
-      <footer className="LayoutLading__footer">
+      <footer className="Layout__footer">
          <section className="footer-section" >
             <p className="footer-title" onClick={handleClick}>Conócenos</p>
             <ul className="footer-list">

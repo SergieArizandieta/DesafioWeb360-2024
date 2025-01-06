@@ -1,20 +1,20 @@
-.LayoutLading {
+.LayoutAuth {
    display: flex;
    flex-direction: column;
-   min-height: 100svh; 
+   min-height: 100dvh; 
    background-color: #dad0c0;
    
  }
  
- .LayoutLading > header,
- .LayoutLading > footer {
+ .LayoutAuth > header,
+ .LayoutAuth > footer {
    flex-shrink: 0; 
    background-color: #928b75; 
  }
  
- .LayoutLading > main {
+ .LayoutAuth > main {
    flex-grow: 1; 
-   background-image: url("../../assets/img/bgLandingPage.jpg");
+   background-color: #dbcfbf;
    background-size: cover; 
    background-position: center;
    background-repeat: no-repeat; 

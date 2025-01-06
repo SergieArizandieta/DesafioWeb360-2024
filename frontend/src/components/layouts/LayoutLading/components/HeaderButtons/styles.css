@@ -3,7 +3,7 @@
    gap: 10px;
 }
 
-.layoutLading__header__buttonsRight button{
+.layoutLading__header__buttonsRight a{
    font-weight: bold;
 }
 

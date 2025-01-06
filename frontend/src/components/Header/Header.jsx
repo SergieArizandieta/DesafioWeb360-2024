@@ -4,7 +4,7 @@ import LogoNameBrand from "../LogoNameBrand/LogoNameBrand"
 export default function Header({ Center, Right }) {
    
   return (
-     <header className="LayoutLading__header">
+     <header className="Layout__header">
          <LogoNameBrand />
          {Center && <Center />}
          {Right && <Right />}

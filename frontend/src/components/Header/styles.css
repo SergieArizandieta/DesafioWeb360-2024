@@ -1,4 +1,4 @@
-.LayoutLading__header{
+.Layout__header{
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 400px) {
-   .LayoutLading__header > .LogoName__brand h1{
+   .Layout__header > .LogoName__brand h1{
       display: none;
    }
 }

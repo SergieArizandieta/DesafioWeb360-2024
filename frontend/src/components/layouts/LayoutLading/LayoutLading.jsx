@@ -2,8 +2,8 @@ import "./styles.css"
 
 import { Outlet } from "react-router-dom";
 
-import Header from "../Header/Header";
-import Footer from "./components/Footer/Footer";
+import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
 import HeaderButtons from "./components/HeaderButtons/HeaderButtons";
 
 export default function LayoutLading() {
