@@ -1,0 +1,23 @@
+.LayoutLading {
+   display: flex;
+   flex-direction: column;
+   min-height: 100svh; 
+   background-color: #dad0c0;
+   
+ }
+ 
+ .LayoutLading > header,
+ .LayoutLading > footer {
+   flex-shrink: 0; 
+   background-color: #928b75; 
+ }
+ 
+ .LayoutLading > main {
+   flex-grow: 1; 
+   background-image: url("../../assets/img/bgLandingPage.jpg");
+   background-size: cover; 
+   background-position: center;
+   background-repeat: no-repeat; 
+   overflow-y: auto;
+ }
+ 

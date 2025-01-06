@@ -1,0 +1,21 @@
+.layoutLading__header__buttonsRight {
+   display: flex;
+   gap: 10px;
+}
+
+.layoutLading__header__buttonsRight button{
+   font-weight: bold;
+}
+
+.layoutLading__header__buttonsRightMobile {
+   display: none;
+}
+
+@media (max-width: 630px) {
+   .layoutLading__header__buttonsRightMobile {
+      display: block;
+   }
+   .layoutLading__header__buttonsRight {
+      display: none;
+   }
+}

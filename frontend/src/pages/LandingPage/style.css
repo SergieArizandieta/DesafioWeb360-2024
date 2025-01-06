@@ -1,0 +1,32 @@
+.landingPage{
+  border: 1px solid red;
+  height: calc(100svh - 160px);
+  display: flex;
+  align-items: center;
+}
+
+.landingPage__section{
+  margin-left: 50px;
+}
+
+.landingPage__text {
+  text-align: left;
+  color: #000;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(3px);
+  margin-bottom: 25px;
+}
+
+.landingPage__text h1 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.landingPage__section button {
+  font-weight: bold;
+  border: 2px solid #000000a3;
+  border-radius: 5px;
+}
+
