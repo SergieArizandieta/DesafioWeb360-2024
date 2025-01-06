@@ -1,4 +1,4 @@
-import "./style.css"
+import "./styles.css"
 import Button from '@mui/material/Button';
 
 export default function LandingPage() {

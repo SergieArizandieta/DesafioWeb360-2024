@@ -1,0 +1,11 @@
+.LogoName__brand{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.LogoName__brand img{
+   height: 50px;
+   width: auto;
+}
+

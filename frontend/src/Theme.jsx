@@ -16,6 +16,9 @@ export const Design = (mode) => ({
       main: "#cec5b2",
       contrastText: "#000"
     },
+
+
+
     // background: {
     //   body:"#f5f5f5",
     //   default: "#F5F5F5",

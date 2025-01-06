@@ -8,19 +8,8 @@
    height: 80px;
 }
 
-.LayoutLading__header__brand{
-   display: flex;
-   align-items: center;
-   gap: 10px;
-}
-
-.LayoutLading__header__brand img{
-   height: 50px;
-   width: auto;
-}
-
 @media (max-width: 400px) {
-   .LayoutLading__header__brand h1{
+   .LayoutLading__header > .LogoName__brand h1{
       display: none;
    }
 }
