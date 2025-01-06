@@ -7,8 +7,6 @@
    top: 0;
    left: 0;
    height: 100svh;
-
-   
 }
 
 .layoutLading__asideMenu.open{
@@ -32,7 +30,7 @@
 
 .layoutLading__asideMenu__container > section{
    user-select: none;
-   height: 75px;
+   height: 50px;
    display: flex;
    gap: 10px;
    align-items: center;   
@@ -47,6 +45,7 @@
 
 .layoutLading__asideMenu__container > section:nth-child(n+3){
    color: #000;
+   border-bottom: 0.5px solid gray;
 }
 
 .layoutLading__asideMenu__container > section:nth-child(n+3):hover{
@@ -58,11 +57,12 @@
    transition: all 0.5s ease;
    height: 50px;
    padding-right: 0px;
+
  }
  
  .layoutLading__asideMenu__container > section:nth-child(2){
    height: 50px;
    padding-bottom: 25px;
-   justify-content: end;
+   justify-content: start;
  }
  
