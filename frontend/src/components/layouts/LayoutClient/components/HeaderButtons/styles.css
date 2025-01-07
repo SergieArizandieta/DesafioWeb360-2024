@@ -11,7 +11,7 @@
    display: none;
 }
 
-@media (max-width: 630px) {
+@media (max-width: 1350px) {
    .layoutClient__header__buttonsRightMobile {
       display: block;
    }

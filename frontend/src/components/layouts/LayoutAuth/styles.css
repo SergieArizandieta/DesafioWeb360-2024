@@ -19,4 +19,9 @@
    background-repeat: no-repeat; 
    overflow-y: auto;
  }
- 
+
+ @media (max-width: 400px) {
+  .layoutAuth .Layout__header > .LogoName__brand h1{
+     display: none;
+  }
+}

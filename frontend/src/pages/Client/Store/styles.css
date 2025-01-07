@@ -1,5 +1,4 @@
 .store{
-   height: calc(100svh - 160px);
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -12,9 +11,7 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-   border: 1px solid blue;
    padding: 0px 20px;
-
  }
 
  .store__categories article{
@@ -29,7 +26,27 @@
    color: #000;
  }
 
- .store__content{
-   background-color: red;
+ .store__content__galery{
+    min-width: 300px;
+    max-width: 1500px;
+    width: 100%;
  }
- 
+
+ .store__content__cards{
+  transform:  translateY(-60%);
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+  gap: 16px;
+  padding: 16px; 
+  justify-items: center;
+ }
+
+
+ @media (max-width: 1300px) {
+  .store__content__cards{
+    transform:  translateY(-50px);
+  }
+}

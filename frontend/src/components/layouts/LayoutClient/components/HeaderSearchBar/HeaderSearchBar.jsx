@@ -1,10 +1,11 @@
 import { TextField } from "@mui/material";
+import "./styles.css"
 
 
 export default function HeaderSearchBar() {
 
   return (
-    <div style={{padding: "0px 50px", width: "100%", maxWidth: "1000px"}}>
+    <div className="layoutClient__header__searchBarCenter">
       <TextField
         label="Buscar"
         variant="filled"

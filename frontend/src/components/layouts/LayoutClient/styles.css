@@ -19,3 +19,9 @@
   background-repeat: no-repeat; 
   overflow-y: auto;
 }
+
+@media (max-width: 900px) {
+  .layoutClient .Layout__header > .LogoName__brand h1{
+     display: none;
+  }
+}

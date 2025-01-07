@@ -20,3 +20,9 @@
    overflow-y: auto;
  }
  
+  
+ @media (max-width: 400px) {
+  .layoutLading .Layout__header > .LogoName__brand h1{
+     display: none;
+  }
+}

@@ -8,8 +8,3 @@
    height: 80px;
 }
 
-@media (max-width: 400px) {
-   .Layout__header > .LogoName__brand h1{
-      display: none;
-   }
-}

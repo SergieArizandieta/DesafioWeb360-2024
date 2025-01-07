@@ -1,0 +1,13 @@
+.layoutClient__header__searchBarCenter {
+   padding: 0px 50px; 
+   width: 100%;
+   max-Width: 1000px;
+}
+
+@media (max-width: 1350px) {
+   .layoutClient__header__searchBarCenter {
+      padding: 0px 10px; 
+      width: 100%;
+      max-Width: 1000px;
+   }
+}

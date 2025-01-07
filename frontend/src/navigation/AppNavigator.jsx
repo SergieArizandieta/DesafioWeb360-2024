@@ -31,6 +31,7 @@ export default function AppNavigator() {
         <Route element={<PrivateRouteClient  isAuth={isAuth} rolIdRol={rolIdRol} />}>
           <Route element={<LayoutClient />}>
           <Route path="/Store" element={<Store />} />
+          <Route path="/s" element={<Store />} />
 
           </Route>
         </Route>
