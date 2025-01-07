@@ -1,7 +1,7 @@
 import {api} from '../../../../api/BaseApi'
 
-export function getOrders(params) {
-  return api.get('/order/read', {params})
+export function updateProduct(data) {
+  return api.put('product/update', data)
   .then((response) => {
     if(response.status === 200){
       return response.data;

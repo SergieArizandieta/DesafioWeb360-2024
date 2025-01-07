@@ -16,6 +16,7 @@ import SingUp from '../pages/Users/SingUp/SingUp'
 import { PrivateRouteOperator } from '../interceptors/PrivateRouteOperator'
 import DashBoard from '../pages/Operator/DashBoard/DashBoard'
 import LayoutOperator from '../components/layouts/LayoutOperator/LayoutOperator'
+import Products from '../pages/Operator/Products/Products'
 
 export default function AppNavigator() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -48,6 +49,7 @@ export default function AppNavigator() {
         <Route element={<PrivateRouteOperator  isAuth={isAuth} rolIdRol={rolIdRol} />}>
           <Route element={<LayoutOperator />}>
             <Route path="/DashBoard" element={<DashBoard />} />
+            <Route path="/Products" element={<Products />} />
           </Route>
         </Route>
 

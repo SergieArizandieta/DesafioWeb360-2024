@@ -53,6 +53,42 @@ export default function DashBoard() {
     }
   };
 
+  const processRowUpdate = async(newRow, oldRow) => {
+
+    const updatedFields = Object.keys(newRow).reduce((acc, key) => {
+      if (newRow[key] !== oldRow[key]) {
+        acc[key] = newRow[key];
+      }
+      return acc;
+    }, {});
+
+    if (Object.keys(updatedFields).length === 0) {
+      return newRow;
+    }
+
+    if (updatedFields.delivery_date) {
+      const [day, month, year] = updatedFields.delivery_date.split("/")
+      updatedFields.delivery_date = `${year}-${month}-${day}`
+    }
+
+    const data = {
+      id_order: oldRow.id_order,
+      ...updatedFields
+    }
+    
+
+    const result = await delOrder(data)
+        .then(async (res) => { await CustomAlert("Exitoso", res.message, true); })
+        .then(() => fetchOrders())
+        .then(() => newRow)
+        .catch((err) => {
+          CustomAlert("Ah ocurrido un error", err, false)
+          return oldRow
+        })
+
+    return result
+    
+  };
 
   const columns = [
     { field: 'id_order', headerName: 'ID', width: 90 },
@@ -60,7 +96,6 @@ export default function DashBoard() {
       field: 'client_id_client',
       headerName: 'ID Cliente',
       width: 150,
-      editable: true,
     },
     {
       field: 'creation_date',
@@ -81,6 +116,7 @@ export default function DashBoard() {
     {
       field: 'address',
       headerName: 'Dirección',
+      editable: true,
       sortable: false,
       width: 160,
     },
@@ -131,7 +167,6 @@ export default function DashBoard() {
         const orders = res.data.rows.map((order) => {
           return { ...order, id: order.id_order }
         })
-        console.log(orders)
         setOrders(orders)
       })
       .catch((err) => {
@@ -180,6 +215,7 @@ export default function DashBoard() {
           }}
           pageSizeOptions={[10]}
           disableRowSelectionOnClick
+          processRowUpdate={processRowUpdate}
         />
       </Box>
     </div>

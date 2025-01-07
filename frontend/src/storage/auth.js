@@ -14,7 +14,7 @@ export const useAuthStore = create(
       setSoppingCart: (shoppingCart) => set({shoppingCart}),
       delAllShoppingCart: () => set({shoppingCart: []}),
       setToken: (token) => set({ token }),
-      logout: () => set({ token: null, isAuth: false, idUserDPI: null, rolIdRol: null }),
+      logout: () => set({ token: null, isAuth: false, idUserDPI: null, rolIdRol: null, shoppingCart: [] }),
    }), {
       name: "auth-storage"
    })

@@ -19,8 +19,8 @@ const findOne = async (where, attributes = null) => {
   }
 };
 
-exports.findOneByEmail = async (email, attributes = null) => {
-  return await findOne({ email }, attributes);
+exports.findOneByEmail = async (email, attributes = null, status_id_status=1) => {
+  return await findOne({ email, status_id_status }, attributes);
 };
 
 exports.findOneById = async (id_userDPI, attributes = null) => {

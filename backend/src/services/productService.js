@@ -29,6 +29,21 @@ exports.read = async (query) => {
     }
 };
 
+exports.readAll = async (query) => {
+    try {
+        
+        let resultRead = await productModel.getAllProducts(query);
+        const resultMapper = productUtil.mapperProducts(resultRead.rows);
+        resultRead.rows = resultMapper;
+
+        return resultRead;
+
+    } catch (err) {
+        throw err;
+    }
+};
+
+
 exports.update = async (product) => {
     try {
         if (product.picture){

@@ -7,14 +7,45 @@ exports.getProducts = async (query) => {
       const sequelize = await connectToDatabase();
 
       const offset = (query.page - 1) * query.limit;
-      const where = query.filterValue
-         ? {
-              [query.filterBy]: {
-                 [Op.like]: `%${query.filterValue}%`,
-              },
-           }
-         : {};
 
+      const where = {
+         status_id_status: 1, 
+         ...(query.filterValue && {
+            [query.filterBy]: {
+               [Op.like]: `%${query.filterValue}%`,
+            },
+         }),
+      };
+      
+      const products = await models.Product.findAndCountAll({
+         where,
+         raw: true,
+         order: [[query.sortBy, query.sortOrder.toUpperCase()]],
+         limit: parseInt(query.limit),
+         offset: parseInt(offset),
+      });
+
+      return products;
+   } catch (error) {
+      console.error("Error en getProducts:", error);
+      throw new Error(`Error al obtener los productos`);
+   }
+};
+
+exports.getAllProducts = async (query) => {
+   try {
+      const sequelize = await connectToDatabase();
+
+      const offset = (query.page - 1) * query.limit;
+
+      const where = {
+         ...(query.filterValue && {
+            [query.filterBy]: {
+               [Op.like]: `%${query.filterValue}%`,
+            },
+         }),
+      };
+      
       const products = await models.Product.findAndCountAll({
          where,
          raw: true,

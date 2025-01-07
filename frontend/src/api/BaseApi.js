@@ -37,6 +37,9 @@ api.interceptors.response.use(
          return api(originalRequest);
        } catch (refreshError) {
          console.error('No se pudo refrescar el token:', refreshError);
+         await api.post('/auth/logout');
+         const logout = useAuthStore.getState().logout;
+         logout();
          return Promise.reject(refreshError);
        }
      }

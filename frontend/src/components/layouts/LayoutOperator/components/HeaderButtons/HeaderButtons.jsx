@@ -12,6 +12,7 @@ export default function HeaderButtons() {
   const navigate = useNavigate();
 
   const handleRedirect = (path) => {
+    console.log(path)
     navigate(path)
   }
   return (
@@ -19,15 +20,15 @@ export default function HeaderButtons() {
       <section className="layoutClient__header__buttonsRight" >
         <SingOut />
 
-        <IconButton onClick={handleRedirect.bind(this, "/DashBoard")}>
+        <IconButton onClick={() => handleRedirect("/Profile")}>
           <AccountCircleIcon sx={{ fontSize: 30 }} />
         </IconButton>
 
-        <IconButton onClick={handleRedirect.bind(this, "/DashBoard")}>
+        <IconButton  onClick={() => handleRedirect("/Profile")}>
           <Inventory2Icon sx={{ fontSize: 30 }} />
         </IconButton>
 
-        <IconButton onClick={handleRedirect.bind(this, "/DashBoard")}>
+        <IconButton  onClick={() => handleRedirect("/Products")}>
           <ProductionQuantityLimitsIcon sx={{ fontSize: 30 }} />
         </IconButton>
        
