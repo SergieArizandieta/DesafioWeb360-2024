@@ -57,7 +57,7 @@ export default function ProductCard({ product }) {
         </Typography>
 
         <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 1 }}>
-          Precio: ${product.price.toFixed(2)}
+          Precio: Q{product.price.toFixed(2)}
         </Typography>
         
         <Button variant="contained" color="primary" onClick={handleAddToCart}>

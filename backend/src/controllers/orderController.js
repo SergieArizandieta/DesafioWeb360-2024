@@ -22,9 +22,12 @@ exports.create = async (req, res) => {
             address,
             delivery_date,
             client_id_client,
-            user_id_user,
+            user_id_user=1000523830100,
             details,
          } = req.body;
+
+       
+        console.log(details)
 
         if (
             address === undefined ||
@@ -32,7 +35,7 @@ exports.create = async (req, res) => {
             client_id_client === undefined ||
             user_id_user === undefined ||
             details === undefined ||
-            details.length === 0
+            details?.length === 0
         )
             return res
                 .status(400)
@@ -62,13 +65,13 @@ exports.read = async (req, res) => {
     if (!refreshToken && !authHeader)
         return res.status(400).json({ message: 'No token provided' });
     
-    // try{
-    //     const accessToken = authHeader.split(" ")[1];
-    //     authUtil.verifyAccessToken(accessToken);
-    // }catch (error) {
-    //     console.error('Error in create: Token expired:', error);
-    //     return res.status(401).json({ message: error.message });
-    // }
+    try{
+        const accessToken = authHeader.split(" ")[1];
+        authUtil.verifyAccessToken(accessToken);
+    }catch (error) {
+        console.error('Error in create: Token expired:', error);
+        return res.status(401).json({ message: error.message });
+    }
 
     try {
         const { 
