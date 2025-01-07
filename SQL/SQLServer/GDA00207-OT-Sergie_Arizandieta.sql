@@ -136,6 +136,7 @@ CREATE TABLE [Order](
    delivery_date DATE NOT NULL,
    total DECIMAL(18, 2) NOT NULL,
    client_id_client CHAR(13) NOT NULL,
+   status_id_status INT NOT NULL,
    user_id_user CHAR(13) NOT NULL,
 );
 GO
@@ -162,6 +163,12 @@ GO
 ALTER TABLE [Order]
 ADD CONSTRAINT FK_Order_User
 FOREIGN KEY (user_id_user) REFERENCES [User](id_userDPI);
+GO
+
+-- add FK: Order - Status relationship
+ALTER TABLE [Order]
+ADD CONSTRAINT FK_Order_Status
+FOREIGN KEY (status_id_status) REFERENCES Status(id_status);
 GO
 
 CREATE TABLE Detail(
@@ -192,6 +199,56 @@ FOREIGN KEY (order_id_order) REFERENCES [Order](id_order);
 GO
 
 -- EXEC sp_helpindex 'Rol';
+
+-- ////////////////////////////////////////////////////////////// Get PROCEDURES //////////////////////////////////////////////////////////////
+
+CREATE PROCEDURE sp_GetOrdersByClient
+    @client_id_client CHAR(13)
+AS
+BEGIN
+    SELECT 
+        o.id_order,
+        o.creation_date,
+        o.address,
+        o.delivery_date,
+        o.total,
+        o.client_id_client,
+        o.status_id_status,
+        s.name AS status_name,
+        o.user_id_user
+    FROM [Order] o
+    INNER JOIN Status s ON o.status_id_status = s.id_status
+    WHERE o.client_id_client = @client_id_client;
+END;
+GO
+
+CREATE PROCEDURE sp_GetProductsByOrder
+    @id_order INT,
+    @client_id_client CHAR(13)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        P.id_product,
+        P.name,
+        P.brand,
+        P.code,
+        P.stock,
+        P.price,
+        P.creation_date,
+        P.picture,
+        P.category_id_category,
+        P.status_id_status
+    FROM 
+        Product P
+    INNER JOIN 
+        Detail D ON P.id_product = D.product_id_product
+    WHERE 
+        D.order_id_order = @id_order AND @client_id_client = (SELECT client_id_client FROM [Order] WHERE id_order = @id_order);
+END;
+GO
+
 
 -- ////////////////////////////////////////////////////////////// SP Simple Inserts  //////////////////////////////////////////////////////////////
 
@@ -334,8 +391,8 @@ CREATE PROCEDURE sp_InsertOrder
     AS
     BEGIN
         BEGIN TRY
-            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user)
-            VALUES (@address, @delivery_date, @total, @client_id_client, @user_id_user);
+            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user, status_id_status)
+            VALUES (@address, @delivery_date, @total, @client_id_client, @user_id_user, 3);
             SET @output_message = 'Inserción realizada exitosamente en Order.';
             RETURN 1; -- Indicar éxito
         END TRY
@@ -867,8 +924,8 @@ CREATE PROCEDURE sp_FlowCreateOrder
         BEGIN TRANSACTION;
         BEGIN TRY
             -- Insert the order and total 0 for now
-            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user)
-			VALUES (@address, @delivery_date, 0, @client_id_client, @user_id_user);
+            INSERT INTO [Order] (address, delivery_date, total, client_id_client, user_id_user, status_id_status)
+			VALUES (@address, @delivery_date, 0, @client_id_client, @user_id_user, 3);
             
             -- Get the ID of the inserted order
             DECLARE @OrderID INT = SCOPE_IDENTITY();

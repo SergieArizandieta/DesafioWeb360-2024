@@ -1,5 +1,48 @@
 const connectToDatabase = require("../data/dbConnection");
 const { models } = require("../types/orderTypes");
+const { Op } = require('sequelize');
+
+
+exports.getDetailByOrder = async (id_order,client_id_client) => {
+   const sequelize = await connectToDatabase();
+
+   try {
+      const query = `
+         EXEC sp_GetProductsByOrder 
+            @id_order = :id_order,
+            @client_id_client = :client_id_client;
+      `;
+      const [results] = await sequelize
+         .query(query, {
+            replacements: { id_order, client_id_client },
+         });
+
+      return results;
+   } catch (error) {
+      console.error("Error en getDetailByOrder:", error);
+      throw new Error(`Error al obtener las ordenes del cliente`);
+   }
+};
+
+exports.getOrdersByClient = async (client_id_client) => {
+   const sequelize = await connectToDatabase();
+
+   try {
+      const query = `
+         EXEC sp_GetOrdersByClient 
+            @client_id_client = :client_id_client;
+      `;
+      const [results] = await sequelize
+         .query(query, {
+            replacements: { client_id_client },
+         });
+
+      return results;
+   } catch (error) {
+      console.error("Error en getOrdersByClient:", error);
+      throw new Error(`Error al obtener las ordenes del cliente`);
+   }
+};
 
 
 exports.getOrders = async (query) => {
@@ -11,7 +54,7 @@ exports.getOrders = async (query) => {
       const where = query.filterValue
          ? {
               [query.filterBy]: {
-                 [sequelize.Op.like]: `%${query.filterValue}%`,
+                 [Op.like]: `%${query.filterValue}%`,
               },
            }
          : {};

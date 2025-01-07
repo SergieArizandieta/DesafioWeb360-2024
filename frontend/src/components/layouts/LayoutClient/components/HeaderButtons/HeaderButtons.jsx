@@ -15,11 +15,15 @@ export default function HeaderButtons() {
     navigate('/ShoppingCart')
   }
 
+  const handleOrders = () => {
+    navigate('/ClientOrders')
+  }
+
   return (
     <>
       <section className="layoutClient__header__buttonsRight" >
         <SingOut />
-        <IconButton>
+        <IconButton onClick={handleOrders}>
           <ShoppingBagIcon sx={{ fontSize: 30 }} />
         </IconButton>
         <IconButton onClick={handleShoppingCart}>

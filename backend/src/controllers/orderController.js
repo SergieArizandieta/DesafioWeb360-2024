@@ -57,6 +57,71 @@ exports.create = async (req, res) => {
     }
 };
 
+exports.readDetailByOrder = async (req, res) => {
+    const { refreshToken } = req.cookies;
+    const authHeader = req.headers.authorization;
+
+    if (!refreshToken && !authHeader)
+        return res.status(400).json({ message: 'No token provided' });
+    
+    try{
+        const accessToken = authHeader.split(" ")[1];
+        authUtil.verifyAccessToken(accessToken);
+    }catch (error) {
+        console.error('Error in create: Token expired:', error);
+        return res.status(401).json({ message: error.message });
+    }
+
+    try {
+        const {
+            id_order,
+            client_id_client
+        } = req.query;
+
+        if (id_order === undefined || client_id_client === undefined)
+            return res.status(400).json({ message: 'Missing required information' });
+
+        const result = await orderService.readDetailByOrder(id_order,client_id_client);
+        const message = "Detalles encontrados exitosamente";
+        res.status(200).json({ message: message, data: result });
+    }catch (err) {
+        console.error("Error in read:", err);
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
+exports.readByClient = async (req, res) => {
+    const { refreshToken } = req.cookies;
+    const authHeader = req.headers.authorization;
+
+    if (!refreshToken && !authHeader)
+        return res.status(400).json({ message: 'No token provided' });
+    
+    try{
+        const accessToken = authHeader.split(" ")[1];
+        authUtil.verifyAccessToken(accessToken);
+    }catch (error) {
+        console.error('Error in create: Token expired:', error);
+        return res.status(401).json({ message: error.message });
+    }
+
+    try {
+        const {
+            client_id_client
+        } = req.query;
+
+        if (client_id_client === undefined)
+            return res.status(400).json({ message: 'Missing required information' });
+
+        const result = await orderService.readByClient(client_id_client);
+        const message = "Ordenes encontrados exitosamente";
+        res.status(200).json({ message: message, data: result });
+    }catch (err) {
+        console.error("Error in read:", err);
+        res.status(500).json({ message: err.message });
+    }
+};
 
 exports.read = async (req, res) => {
     const { refreshToken } = req.cookies;

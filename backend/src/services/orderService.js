@@ -1,4 +1,5 @@
 const orderModel = require("../model/orderModel");
+const productDetail = require("../utils/detailsOrderUtil");
 
 exports.create = async (order) => {
     try {
@@ -13,6 +14,26 @@ exports.create = async (order) => {
 
 }; 
 
+exports.readByClient = async (client_id_client) => {
+    try {
+        const resultRead = await orderModel.getOrdersByClient(client_id_client);
+
+        return resultRead;
+    } catch (err) {
+        throw err;
+    }
+};
+
+exports.readDetailByOrder = async (id_order,client_id_client) => {
+    try {
+        const resultRead = await orderModel.getDetailByOrder(id_order,client_id_client);
+        const resultMapper = productDetail.mapperDetailOrders(resultRead);
+        
+        return resultMapper;
+    } catch (err) {
+        throw err;
+    }
+};
 
 exports.read = async (query) => {
     try {

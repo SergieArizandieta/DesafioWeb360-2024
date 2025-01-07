@@ -130,7 +130,7 @@ export default function ShoppingCart() {
                 </Typography>
 
                 <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 1 }}>
-                  Precio: ${product.price.toFixed(2)}
+                  Precio: Q{product.price.toFixed(2)}
                 </Typography>
 
                 <Box
