@@ -20,6 +20,16 @@
   overflow-y: auto;
 }
 
+.productSearch__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px; /* Espaciado entre las tarjetas */
+  padding: 16px; /* Espaciado interno */
+  justify-content: center; /* Centrar contenido horizontalmente */
+  align-items: start; /* Alinear tarjetas verticalmente */
+  background-color: #f9f9f9; /* Fondo opcional */
+}
+
 @media (max-width: 900px) {
   .layoutClient .Layout__header > .LogoName__brand h1{
      display: none;
