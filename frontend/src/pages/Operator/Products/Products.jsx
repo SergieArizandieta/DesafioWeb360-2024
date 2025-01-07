@@ -128,11 +128,13 @@ export default function Products() {
       field: 'category_id_category',
       headerName: 'ID Categoria',
       width: 150,
+      editable: true,
     },
     {
       field: 'status_id_status',
       headerName: 'ID Estado',
       width: 150,
+      editable: true,
     },
     {
       field: "picture",
