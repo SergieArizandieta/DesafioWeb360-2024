@@ -4,25 +4,31 @@ import { useAuthStore } from '../../../storage/auth';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { createOrder } from "../ProductSearch/services/createOrder";
 import CustomAlert from "../../../components/CustomAlert/CustomAlert";
-
+import { orderSchema } from "./yupValidations/yupValidations";
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form';
 
 export default function ShoppingCart() {
-  const idUserDPI = useAuthStore((state) => state.idUserDPI);
 
+  const schema = orderSchema;
+  const { register, handleSubmit, formState: {errors} } = useForm({
+      resolver: yupResolver(schema),
+    });
+
+  const idUserDPI = useAuthStore((state) => state.idUserDPI);
   const shoppingCart = useAuthStore((state) => state.shoppingCart);
   const setSoppingCart = useAuthStore((state) => state.setSoppingCart);
   const delAllShoppingCart = useAuthStore((state) => state.delAllShoppingCart);
 
-  const handleSubmitt = (e) => {
-    e.preventDefault();
-    const address = e.target[0].value;
+
+  const onSubmit = (data) => {
     const delivery_date = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
     const details = shoppingCart.map((item) => {
       return { id_product: item.id_product, quantity: item.quantity }
     });
 
     const order = {
-      address,
+      ...data,
       delivery_date,
       client_id_client: idUserDPI,
       details,
@@ -173,15 +179,17 @@ export default function ShoppingCart() {
                 Total: Q{shoppingCart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
               </Typography>
           
-              <form onSubmit={handleSubmitt}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
+                 error={Boolean(errors.address)}
                   label="Dirección de envío"
                   variant="filled"
                   color="quarternary"
-                  required
                   fullWidth
+                  helperText={errors.address?.message}
+                  {...register('address')}
                 />
-                <br/>
+
                 <Button variant="contained" color="primary" sx={{ mt: 2 }} fullWidth type="submit">
                   Confirmar compra
                 </Button>

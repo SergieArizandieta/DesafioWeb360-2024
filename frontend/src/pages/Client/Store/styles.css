@@ -11,7 +11,7 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-   padding: 0px 20px;
+   padding: 0px 60px;
  }
 
  .store__categories article{
@@ -48,5 +48,11 @@
  @media (max-width: 1300px) {
   .store__content__cards{
     transform:  translateY(-50px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .store__categories article:not(:first-child){
+    display: none;
   }
 }

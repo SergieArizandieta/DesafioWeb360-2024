@@ -35,7 +35,6 @@ export default function OrderDetails({ id_order, order }) {
     }
     getDetails(params)
       .then((res) => {
-        console.log("res", res.data)
         setDetails(res.data)
       })
       .catch((err) => {
@@ -49,9 +48,10 @@ export default function OrderDetails({ id_order, order }) {
   };
   const handleClose = () => setOpen(false);
 
+
   return (
     <div>
-      <Button variant="contained" color="primary" fullWidth value={id_order} onClick={handleOpen}>
+      <Button variant="contained" color="secondary" fullWidth value={id_order} onClick={handleOpen}>
         Ver Detalles
       </Button>
 

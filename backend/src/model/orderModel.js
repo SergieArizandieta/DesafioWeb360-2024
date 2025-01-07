@@ -82,7 +82,10 @@ exports.sp_UpdateOrder = async (order) => {
       delivery_date,
       client_id_client,
       user_id_user,
+      id_status
    } = order;
+
+   console.log("id_status",id_status)
 
    const sequelize = await connectToDatabase();
 
@@ -95,6 +98,7 @@ exports.sp_UpdateOrder = async (order) => {
             @delivery_date = :delivery_date, 
             @client_id_client = :client_id_client, 
             @user_id_user = :user_id_user, 
+            @id_status = :id_status,
             @output_message = @message OUTPUT;
          SELECT @message AS output_message; 
       `;
@@ -106,6 +110,7 @@ exports.sp_UpdateOrder = async (order) => {
             delivery_date,
             client_id_client,
             user_id_user,
+            id_status
          },
          type: sequelize.QueryTypes.SELECT,
       });

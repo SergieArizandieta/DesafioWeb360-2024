@@ -28,6 +28,7 @@ function mapperOrders(orders) {
          total: order.total,
          client_id_client: order.client_id_client,
          status_name: order.status_name,
+         id_status: order.id_status
       };
    });
    return mapProducts;

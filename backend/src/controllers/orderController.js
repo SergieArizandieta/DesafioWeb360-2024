@@ -176,14 +176,11 @@ exports.update = async (req, res) => {
 
     try {
         const accessToken = authHeader.split(" ")[1];
-        var payload = authUtil.verifyAccessToken(accessToken);
+        authUtil.verifyAccessToken(accessToken);
     } catch (error) {
         console.error("Error in create: Token expired:", error);
         return res.status(401).json({ message: error.message });
     }
-
-    if (payload.rol_id_rol !== 2)
-        return res.status(400).json({ message: "Unauthorized user" });
 
     try {
         const { 
@@ -192,6 +189,7 @@ exports.update = async (req, res) => {
             delivery_date = null,
             client_id_client = null,
             user_id_user = null,
+            id_status = null,
          } = req.body;
 
         if (id_order === undefined)
@@ -205,6 +203,7 @@ exports.update = async (req, res) => {
             delivery_date,
             client_id_client,
             user_id_user,
+            id_status,
         };
 
         const result = await orderService.update(order);

@@ -1,10 +1,13 @@
-import { Box, IconButton, Typography } from "@mui/material"
+import { Box, Button, IconButton, Typography } from "@mui/material"
 import "./styles.css"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useEffect, useState } from "react";
 import { getOrders } from "./services/getOrders";
 import { useAuthStore } from '../../../storage/auth';
 import OrderDetails from "./components/orderDetails/orderDetails";
+import CustomQuestionAlert from "../../../components/CustomQuestionAlert/CustomQuestionAlert";
+import { delOrder } from "./services/delOrder";
+import CustomAlert from "../../../components/CustomAlert/CustomAlert";
 
 
 export default function ClientOrders() {
@@ -17,12 +20,34 @@ export default function ClientOrders() {
     }
     getOrders(params)
       .then((res) => {
+        console.log(res.data)
         setOrders(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
   }
+
+  const handleCancel = async(e) => {
+    console.log("Cancel order")
+
+    const result = await CustomQuestionAlert("Cancelar Orden", "¿Estás seguro que deseas cancelar esta orden?")
+
+    if (result.isConfirmed) {
+      const id_order = e.target.value
+      const data = {
+        id_order,
+        id_status: 2
+      }
+
+      delOrder(data)
+        .then(async(res) => {await CustomAlert("Exitoso", res.message, true);})
+        .then(() => fetchOrders())
+        .catch((err) => {
+          CustomAlert("Ah ocurrido un error", err, false)
+        })
+    }
+  };
 
   useEffect(() => {
     fetchOrders()
@@ -93,6 +118,14 @@ export default function ClientOrders() {
                 </Typography>
 
                 <OrderDetails id_order={order.id_order} order={order} />
+                
+                  {
+                    order.id_status === 3 &&
+                      <Button variant="contained" color="error" fullWidth sx={{ mt: 2 }} value={order.id_order} onClick={handleCancel}>
+                        Cancelar Orden
+                      </Button>
+                  }
+
               </Box>
 
             </article>

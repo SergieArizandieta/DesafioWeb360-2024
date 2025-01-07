@@ -215,10 +215,11 @@ BEGIN
         o.client_id_client,
         o.status_id_status,
         s.name AS status_name,
+        s.id_status,
         o.user_id_user
     FROM [Order] o
     INNER JOIN Status s ON o.status_id_status = s.id_status
-    WHERE o.client_id_client = @client_id_client;
+    WHERE o.client_id_client = @client_id_client AND s.id_status != 2;
 END;
 GO
 
@@ -661,20 +662,22 @@ CREATE PROCEDURE sp_UpdateOrder
         @delivery_date DATE = NULL,
         @client_id_client CHAR(13) = NULL,
         @user_id_user CHAR(13) = NULL,
+        @id_status INT = NULL,
         @output_message NVARCHAR(MAX) OUTPUT
     AS
     BEGIN
         SET NOCOUNT ON;
 
         BEGIN TRY
-            IF @address IS NOT NULL OR @delivery_date IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL
+            IF @address IS NOT NULL OR @delivery_date IS NOT NULL OR @client_id_client IS NOT NULL OR @user_id_user IS NOT NULL OR @id_status IS NOT NULL
             BEGIN
                 UPDATE [Order]
                 SET 
                     address = ISNULL(@address, address),
                     delivery_date = ISNULL(@delivery_date, delivery_date),
                     client_id_client = ISNULL(@client_id_client, client_id_client),
-                    user_id_user = ISNULL(@user_id_user, user_id_user)
+                    user_id_user = ISNULL(@user_id_user, user_id_user),
+                    status_id_status = ISNULL(@id_status, status_id_status)
                 WHERE id_order = @id_order;
                 SET @output_message = 'Actualización realizada exitosamente en Order.';
                 RETURN 1; -- Código de retorno indicando éxito
