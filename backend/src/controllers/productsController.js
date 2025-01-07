@@ -26,8 +26,6 @@ exports.read = async (req, res) => {
             limit = 10         
         } = req.query;
         
-        console.log(req.query);
-
         const query = {
             filterBy,
             filterValue,

@@ -17,8 +17,9 @@ exports.create = async (order) => {
 exports.readByClient = async (client_id_client) => {
     try {
         const resultRead = await orderModel.getOrdersByClient(client_id_client);
+        const resultMapper = productDetail.mapperOrders(resultRead);
 
-        return resultRead;
+        return resultMapper;
     } catch (err) {
         throw err;
     }

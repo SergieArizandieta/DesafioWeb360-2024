@@ -56,7 +56,7 @@ export default function ProductCard({ product }) {
           {product.brand} - Stock: {product.stock}
         </Typography>
 
-        <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 1 }}>
+        <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 1}}>
           Precio: Q{product.price.toFixed(2)}
         </Typography>
         

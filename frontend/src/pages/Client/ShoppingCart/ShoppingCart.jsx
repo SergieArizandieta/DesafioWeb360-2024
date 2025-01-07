@@ -36,16 +36,21 @@ export default function ShoppingCart() {
     })
   }
  
+  const editQuantity = (id_product, add) =>{
+    const updatedCart = shoppingCart.map((item) => {
+      if (item.id_product === id_product) {
+        return { ...item, quantity: add ? item.quantity + 1 : item.quantity - 1 };
+      }
+      return item;
+    });
+
+    return updatedCart
+  }
 
   const handleAddToCart = (e) => {
     const id_product = parseInt(e.target.value);
 
-    const updatedCart = shoppingCart.map((item) => {
-      if (item.id_product === id_product) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-      return item;
-    });
+    const updatedCart = editQuantity(id_product,true)
     setSoppingCart(updatedCart);
   }
 
@@ -58,12 +63,7 @@ export default function ShoppingCart() {
       const updatedCart = shoppingCart.filter((item) => item.id_product !== id_product);
       setSoppingCart(updatedCart);
     } else {
-      const updatedCart = shoppingCart.map((item) => {
-        if (item.id_product === id_product) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-        return item;
-      });
+      const updatedCart = editQuantity(id_product,false)
       setSoppingCart(updatedCart);
     }
   }
@@ -117,7 +117,7 @@ export default function ShoppingCart() {
                   padding: "0 1rem"
                 }}>
 
-                <Typography variant="h6" sx={{ mb: 1 }}>
+                <Typography variant="h6" sx={{ mb: 1, minWidth: 200  }}>
                   {product.name}
                 </Typography>
 
@@ -151,7 +151,7 @@ export default function ShoppingCart() {
                   </Button>
                 </Box>
 
-                <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 1, borderTop: "1px solid gray", marginTop: "1.5rem" }}>
                   Subtotal: Q{(product.price * product.quantity).toFixed(2)}
                 </Typography>
 

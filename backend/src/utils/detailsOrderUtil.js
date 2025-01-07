@@ -18,8 +18,31 @@ function mapperDetailOrders(datails) {
    return mapProducts;
 }
 
+function mapperOrders(orders) {
+   const mapProducts = orders.map((order) => {
+      return {
+         id_order: order.id_order,
+         creation_date: formatDate(order.creation_date),
+         address: order.address,
+         delivery_date: formatDate(order.delivery_date),
+         total: order.total,
+         client_id_client: order.client_id_client,
+         status_name: order.status_name,
+      };
+   });
+   return mapProducts;
+}
+
+function formatDate(dateString) {
+   const date = new Date(dateString);
+   const day = String(date.getDate()).padStart(2, '0');
+   const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
+   const year = date.getFullYear();
+   return `${day}/${month}/${year}`;
+ }
 
 
 module.exports = { 
-   mapperDetailOrders
+   mapperDetailOrders,
+   mapperOrders
  };

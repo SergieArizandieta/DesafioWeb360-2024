@@ -22,7 +22,6 @@ const style = {
   overflowY: "auto",
 };
 
-// eslint-disable-next-line react/prop-types
 export default function OrderDetails({ id_order, order }) {
   const idUserDPI = useAuthStore((state) => state.idUserDPI);
 
@@ -103,9 +102,9 @@ export default function OrderDetails({ id_order, order }) {
                 </Typography>
 
                 <Typography variant="body2" sx={{ mb: 1, textAlign: "right" }}>
-                  Fecha de envio: {order.delivery_date.split("-").reverse().join("/")}
+                  Fecha de envio: {order.delivery_date}
                   <br />
-                  Fecha de creación: {order.creation_date.split("T")[0].split("-").reverse().join("/")}
+                  Fecha de creación: {order.creation_date}
                   <br />
                   Estado: {order.status_name}
                 </Typography>
@@ -132,10 +131,10 @@ export default function OrderDetails({ id_order, order }) {
                         justifyContent: "space-between",
                         flexDirection: "column",
                         height: "100%",
-                        padding: "0 1rem"
+                        padding: "0 1rem",
                       }}>
 
-                      <Typography variant="h6" sx={{ mb: 1 }}>
+                      <Typography variant="h6" sx={{ mb: 1, minWidth: 200 }} color="secondary"  >
                         {detail.name}
                       </Typography>
 
@@ -154,7 +153,7 @@ export default function OrderDetails({ id_order, order }) {
                         <br />
                       </Typography>
 
-                      <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 1 }}>
+                      <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 1, borderTop: "1px solid gray"}}>
                         Subtotal: Q{(detail.subtotal).toFixed(2)}
                       </Typography>
                     </Box>

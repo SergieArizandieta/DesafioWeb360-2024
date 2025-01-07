@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export default function Filters({searchTerm,resultsCount }) {
+export default function Filters({searchTerm,page,resultsCount }) {
   const navigate = useNavigate();
   const [filterBy, setFilter] = useState('');
 
@@ -30,7 +30,7 @@ export default function Filters({searchTerm,resultsCount }) {
   return (
     <section className="productSearch__filters" >
       <article>
-        <Typography variant="h6" sx={{fontSize: "0.8rem"}}> {resultsCount} resultados para <span style={{ color: "red"}}> &quot;{searchTerm}&quot;  </span></Typography>
+        <Typography variant="h6" sx={{fontSize: "0.8rem"}}> {resultsCount === 0 ? 0 : ((page-1)*10)+1}  a { page*10 > resultsCount ? resultsCount:page*10} de {resultsCount} resultados para <span style={{ color: "red"}}> &quot;{searchTerm}&quot;  </span></Typography>
       </article>
 
       <article>

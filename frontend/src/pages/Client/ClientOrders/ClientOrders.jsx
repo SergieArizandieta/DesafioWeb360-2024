@@ -26,6 +26,7 @@ export default function ClientOrders() {
 
   useEffect(() => {
     fetchOrders()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -77,9 +78,9 @@ export default function ClientOrders() {
                   </Typography>
 
                   <Typography variant="body2" sx={{ mb: 1, textAlign: "right" }}>
-                    Fecha de envio: {order.delivery_date.split("-").reverse().join("/")}
+                    Fecha de envio: {order.delivery_date}
                     <br/>
-                    Fecha de creación: {order.creation_date.split("T")[0].split("-").reverse().join("/")}
+                    Fecha de creación: {order.creation_date}
                     <br/>
                     Estado: {order.status_name}
                   </Typography>

@@ -1,16 +1,17 @@
 import "./styles.css";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../ProductCard/ProductCard";
-import { useState } from "react";
 import { getProducts } from "../../services/getProducts";
 import { useSearchParams } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 // eslint-disable-next-line react/prop-types
-export default function ListProducts({ searchTerm, setResultsCount}) {
+export default function ListProducts({ searchTerm, page, setPage, resultsCount, setResultsCount }) {
   const [searchParams] = useSearchParams();
   const { sortBy = "id_product", sortOrder = "ASC" } = Object.fromEntries(searchParams.entries());
-  const [page, setPage] = useState(1);
-  const limit = 10; 
+  const limit = 10;
 
   const fetchProducts = async ({ queryKey }) => {
     const { searchTerm, page, limit } = queryKey[1];
@@ -47,21 +48,55 @@ export default function ListProducts({ searchTerm, setResultsCount}) {
   return (
     <div>
       <div className="pagination-controls">
-        <button
+        
+
+        <IconButton
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1 || isFetching}
-        >
-          Anterior
-        </button>
+          sx={{
+            width: 40,
+            height: 40,
+          }}>
+          <ArrowBackIosNewIcon
+            sx={{ fontSize: 30 }}
+          />
+        </IconButton>
 
-        <span>Página {page}</span>
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            cursor: "pointer",
+          }}>
+          {resultsCount > 0 &&
+            Array.from({ length: Math.ceil(resultsCount / limit) }, (_, i) => (
+              <p
+                key={i}
+                onClick={() => setPage(i + 1)}
+                disabled={isFetching}
+                style={{
+                  color: i + 1 === page ? "#60c6b4" : "black",
+                  fontWeight: i + 1 === page ? "bold" : "normal",
+                  textDecoration: i + 1 === page ? "underline" : "none",
+                }}
+              >
+                {i + 1}
+              </p>
+            ))
+          }
+        </div>
 
-        <button
+        <IconButton
           onClick={() => setPage((prev) => prev + 1)}
           disabled={data.data?.length < limit || isFetching}
-        >
-          Siguiente
-        </button>
+          sx={{
+            width: 40,
+            height: 40,
+          }}>
+          <ArrowForwardIosIcon
+            sx={{ fontSize: 30 }}
+          />
+        </IconButton>
       </div>
 
       <div className="product-list">
@@ -70,7 +105,7 @@ export default function ListProducts({ searchTerm, setResultsCount}) {
         ))}
       </div>
 
-      
+
 
       {isFetching && <p>Actualizando productos...</p>}
     </div>
