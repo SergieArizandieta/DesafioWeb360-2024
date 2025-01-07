@@ -1,7 +1,7 @@
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
 export default function Filters({searchTerm}) {
   const [age, setAge] = useState('');
 
@@ -12,7 +12,7 @@ export default function Filters({searchTerm}) {
   return (
     <section className="productSearch__filters" >
       <article>
-        <Typography variant="h6" sx={{fontSize: "0.8rem"}}>1 a 16 de más de 10,000 resultados para <span style={{ color: "red"}}> "{searchTerm}"  </span></Typography>
+        <Typography variant="h6" sx={{fontSize: "0.8rem"}}>1 a 16 de más de 10,000 resultados para <span style={{ color: "red"}}> &quot;{searchTerm}&quot;  </span></Typography>
       </article>
 
       <article>

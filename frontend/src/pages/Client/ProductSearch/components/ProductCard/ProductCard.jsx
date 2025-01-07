@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import { Box, Button, Paper, Typography } from "@mui/material";
 
-// eslint-disable-next-line react/prop-types
 export default function ProductCard({ product }) {
 
   return (
