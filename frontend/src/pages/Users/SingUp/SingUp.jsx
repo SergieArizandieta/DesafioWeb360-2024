@@ -11,8 +11,18 @@ import dayjs from 'dayjs';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form';
 import { registerSchema } from "./yupValidations/yupValidations";
+import { singUp_Service } from "./services/singUp";
+import CustomAlert from "../../../components/CustomAlert/CustomAlert";
+
+import { useNavigate } from "react-router-dom";
+
 export default function SingUp() {
+  const navigate = useNavigate();
   const currentYear =  dayjs().subtract(18, 'year');
+
+  const handleGoToSingIn = () => {
+    navigate('/SingIn');
+  }
 
 
   const schema = registerSchema;
@@ -22,7 +32,13 @@ export default function SingUp() {
   });
 
   const onSubmit = (data) => {
-    console.log(data)
+    data.birth_date = data.birth_date.toISOString().split('T')[0];
+    singUp_Service(data)
+        .then(async(res) => {await CustomAlert("Usuario Crado", res.message, true);})
+        .then(() => handleGoToSingIn())
+        .catch((err) => {
+          CustomAlert("Ah ocurrido un error", err, false)
+        })
   }
 
   const [showPassword, setShowPassword] = useState(false);
@@ -72,9 +88,9 @@ export default function SingUp() {
             variant="filled"
             type="number"
             color="quarternary"
-            error={Boolean(errors.dpi)}
-            helperText={errors.dpi?.message}
-            {...register('dpi')}
+            error={Boolean(errors.id_userDPI)}
+            helperText={errors.id_userDPI?.message}
+            {...register('id_userDPI')}
           />
 
 
@@ -98,9 +114,9 @@ export default function SingUp() {
             label="Nombre Completo"
             variant="filled"
             color="quarternary"
-            error={Boolean(errors.fullName)}
-            helperText={errors.fullName?.message}
-            {...register('fullName')}
+            error={Boolean(errors.full_name)}
+            helperText={errors.full_name?.message}
+            {...register('full_name')}
           />
 
 
@@ -182,15 +198,15 @@ export default function SingUp() {
               views={['year', 'month', 'day']}
               yearsOrder="desc"
               onChange={(date) => {
-                setValue('birthDate', date);
+                setValue('birth_date', date);
               }}
               slots={{
                 textField: (params) => (
                   <TextField
                     {...params}
                     variant="filled"
-                    error={Boolean(errors.birthDate)}
-                    helperText={errors.birthDate?.message}
+                    error={Boolean(errors.birth_date)}
+                    helperText={errors.birth_date?.message}
                   />
                 ),
               }}
@@ -220,9 +236,9 @@ export default function SingUp() {
             label="Descripción"
             variant="filled"
             color="quarternary"
-            error={Boolean(errors.reson)}
-            helperText={errors.reson?.message}
-            {...register('reson')}
+            error={Boolean(errors.reason)}
+            helperText={errors.reason?.message}
+            {...register('reason')}
           />
 
 
@@ -251,6 +267,7 @@ export default function SingUp() {
         </form>
 
         <Button
+          onClick={handleGoToSingIn}
           sx={{ marginTop: '10px', fontWeight: 'bold' }}
           variant="contained"
           color="tertiary">

@@ -46,14 +46,14 @@ const addressSchema = yup.string()
   
 
 export const registerSchema = yup.object().shape({
-  dpi: dpiSchema,
+  id_userDPI: dpiSchema,
   email: emailSchema,
-  fullName: fullNameSchema,
+  full_name: fullNameSchema,
   password: passwordSchema,
   confirmPass: confirmPassSchema,
   phone: phoneSchema,
-  birthDate: birthDateSchema,
+  birth_date: birthDateSchema,
   source: sourceSchema,
-  reson: resonSchema,
+  reason: resonSchema,
   address: addressSchema,
 });

@@ -10,17 +10,6 @@ exports.create = async (req, res) => {
         return res.status(400).json({ message: "No token provided" });
 
     try {
-        const accessToken = authHeader.split(" ")[1];
-        var payload = authUtil.verifyAccessToken(accessToken);
-    } catch (error) {
-        console.error("Error in create: Token expired:", error);
-        return res.status(401).json({ message: error.message });
-    }
-
-    if (payload.rol_id_rol !== 2)
-        return res.status(400).json({ message: "Unauthorized user" });
-
-    try {
         const { 
             id_userDPI,
             email,
@@ -28,12 +17,13 @@ exports.create = async (req, res) => {
             password,
             phone,
             birth_date,
-            status_id_status,
             source,
             reason,
             address,
         } = req.body;
 
+        const status_id_status = 1;
+        
         if (
             id_userDPI === undefined ||
             email === undefined ||
