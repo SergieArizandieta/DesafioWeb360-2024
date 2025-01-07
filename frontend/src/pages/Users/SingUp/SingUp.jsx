@@ -12,8 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form';
 import { registerSchema } from "./yupValidations/yupValidations";
 export default function SingUp() {
-  // const currentYear =  dayjs().subtract(18, 'year');
-  const currentYear =  dayjs();
+  const currentYear =  dayjs().subtract(18, 'year');
 
 
   const schema = registerSchema;
