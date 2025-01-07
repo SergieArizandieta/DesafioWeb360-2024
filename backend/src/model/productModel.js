@@ -1,4 +1,5 @@
 const connectToDatabase = require("../data/dbConnection");
+const { Op } = require('sequelize');
 const { models } = require("../types/productType");
 
 exports.getProducts = async (query) => {
@@ -9,7 +10,7 @@ exports.getProducts = async (query) => {
       const where = query.filterValue
          ? {
               [query.filterBy]: {
-                 [sequelize.Op.like]: `%${query.filterValue}%`,
+                 [Op.like]: `%${query.filterValue}%`,
               },
            }
          : {};

@@ -8,7 +8,7 @@ function mapperProducts(products) {
          code: product.code,
          stock: product.stock,
          price: product.price,
-         picture: product.picture.toString("base64"),
+         picture: "data:image/png;base64," + product.picture.toString("base64"),
          category_id_category: product.category_id_category,
          status_id_status: product.status_id_status,
       };

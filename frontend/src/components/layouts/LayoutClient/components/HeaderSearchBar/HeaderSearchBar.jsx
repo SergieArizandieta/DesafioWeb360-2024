@@ -7,7 +7,7 @@ export default function HeaderSearchBar() {
   const navigate = useNavigate();
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && event.target.value) {
       const searchTerm = event.target.value;
       navigate(`/s/${searchTerm}`);
     }

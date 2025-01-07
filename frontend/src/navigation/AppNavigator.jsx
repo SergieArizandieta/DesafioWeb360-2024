@@ -10,6 +10,7 @@ import { useAuthStore } from '../storage/auth'
 import { PrivateRouteClient } from '../interceptors/PrivateRouteClient'
 import LayoutClient from '../components/layouts/LayoutClient/LayoutClient'
 import ProductSearch from '../pages/Client/ProductSearch/ProductSearch'
+import ShoppingCart from '../pages/Client/ShoppingCart/ShoppingCart'
 
 export default function AppNavigator() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -33,6 +34,8 @@ export default function AppNavigator() {
           <Route element={<LayoutClient />}>
             <Route path="/Store" element={<Store />} />
             <Route path="/s/:searchTerm" element={<ProductSearch />} />
+            <Route path="/ShoppingCart" element={<ShoppingCart />} />
+
           </Route>
         </Route>
 
