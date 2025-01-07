@@ -2,7 +2,7 @@
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import { useState } from "react";
 import { getDetails } from "../../services/getDetails";
-import { useAuthStore } from '../../../../../storage/auth';
+import { useAuthStore } from '../../storage/auth';
 import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
@@ -22,7 +22,7 @@ const style = {
   overflowY: "auto",
 };
 
-export default function OrderDetails({ id_order, order }) {
+export default function OrderDetails({ id_order, order, idUserDPIParam=null }) {
   const idUserDPI = useAuthStore((state) => state.idUserDPI);
 
   const [details, setDetails] = useState([]);
@@ -31,7 +31,7 @@ export default function OrderDetails({ id_order, order }) {
   const fetchDetails = () => {
     const params = {
       id_order: id_order,
-      client_id_client: idUserDPI,
+      client_id_client: idUserDPIParam ? idUserDPIParam : idUserDPI,
     }
     getDetails(params)
       .then((res) => {
@@ -42,6 +42,7 @@ export default function OrderDetails({ id_order, order }) {
       })
   }
 
+ 
   const handleOpen = () => {
     setOpen(true);
     fetchDetails()

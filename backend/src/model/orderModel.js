@@ -51,13 +51,14 @@ exports.getOrders = async (query) => {
       const sequelize = await connectToDatabase();
       const offset = (query.page - 1) * query.limit;
 
-      const where = query.filterValue
-         ? {
-              [query.filterBy]: {
-                 [Op.like]: `%${query.filterValue}%`,
-              },
-           }
-         : {};
+      const where = {
+         status_id_status: 3, // Condición para filtrar por status_id_status igual a 3
+         ...(query.filterValue && {
+            [query.filterBy]: {
+               [Op.like]: `%${query.filterValue}%`,
+            },
+         }),
+      };
 
          console.log("models",models)
       const categories = await models.Order.findAndCountAll({

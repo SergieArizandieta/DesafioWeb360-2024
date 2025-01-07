@@ -2,7 +2,6 @@ import { IconButton } from "@mui/material";
 import "./styles.css"
 import SingOut from "../../../../SingOut/SingOut";
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAuthStore } from '../../../../../storage/auth';
 import { useNavigate } from "react-router-dom";
 
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
@@ -11,7 +10,6 @@ import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 export default function HeaderButtons() {
   const navigate = useNavigate();
-
 
   const handleRedirect = (path) => {
     navigate(path)

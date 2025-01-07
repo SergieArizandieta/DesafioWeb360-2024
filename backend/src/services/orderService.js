@@ -40,6 +40,7 @@ exports.read = async (query) => {
     try {
         
         let resultRead = await orderModel.getOrders(query);
+        resultRead.rows = productDetail.mapperOrders(resultRead.rows);
 
         return resultRead;
 

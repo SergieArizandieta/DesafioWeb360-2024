@@ -4,10 +4,10 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { useEffect, useState } from "react";
 import { getOrders } from "./services/getOrders";
 import { useAuthStore } from '../../../storage/auth';
-import OrderDetails from "./components/orderDetails/orderDetails";
 import CustomQuestionAlert from "../../../components/CustomQuestionAlert/CustomQuestionAlert";
 import { delOrder } from "./services/delOrder";
 import CustomAlert from "../../../components/CustomAlert/CustomAlert";
+import OrderDetails from "../../../components/OrderDetails/OrderDetails";
 
 
 export default function ClientOrders() {
@@ -29,8 +29,6 @@ export default function ClientOrders() {
   }
 
   const handleCancel = async(e) => {
-    console.log("Cancel order")
-
     const result = await CustomQuestionAlert("Cancelar Orden", "¿Estás seguro que deseas cancelar esta orden?")
 
     if (result.isConfirmed) {
