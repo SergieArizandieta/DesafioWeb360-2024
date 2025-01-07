@@ -6,7 +6,7 @@ export const PrivateRoute = ({ isAuth, rolIdRol }) => {
     if(rolIdRol === 1){
       return <Navigate to="/Store" />;
     }else{
-      return <Navigate to="/" />;
+      return <Navigate to="/DashBoard" />;
     }
   }
   return <Outlet/>;

@@ -1,0 +1,21 @@
+.LayoutOperator__header__buttonsRight {
+   display: flex;
+   gap: 10px;
+}
+
+.LayoutOperator__header__buttonsRight a{
+   font-weight: bold;
+}
+
+.LayoutOperator__header__buttonsRightMobile {
+   display: none;
+}
+
+@media (max-width: 1350px) {
+   .LayoutOperator__header__buttonsRightMobile {
+      display: block;
+   }
+   .LayoutOperator__header__buttonsRight {
+      display: none;
+   }
+}

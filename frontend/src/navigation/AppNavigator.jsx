@@ -13,6 +13,9 @@ import ProductSearch from '../pages/Client/ProductSearch/ProductSearch'
 import ShoppingCart from '../pages/Client/ShoppingCart/ShoppingCart'
 import ClientOrders from '../pages/Client/ClientOrders/ClientOrders'
 import SingUp from '../pages/Users/SingUp/SingUp'
+import { PrivateRouteOperator } from '../interceptors/PrivateRouteOperator'
+import DashBoard from '../pages/Operator/DashBoard/DashBoard'
+import LayoutOperator from '../components/layouts/LayoutOperator/LayoutOperator'
 
 export default function AppNavigator() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -39,9 +42,12 @@ export default function AppNavigator() {
             <Route path="/s/:searchTerm" element={<ProductSearch />} />
             <Route path="/ShoppingCart" element={<ShoppingCart />} />
             <Route path="/ClientOrders" element={<ClientOrders />} />
+          </Route>
+        </Route>
 
-
-
+        <Route element={<PrivateRouteOperator  isAuth={isAuth} rolIdRol={rolIdRol} />}>
+          <Route element={<LayoutOperator />}>
+            <Route path="/DashBoard" element={<DashBoard />} />
           </Route>
         </Route>
 

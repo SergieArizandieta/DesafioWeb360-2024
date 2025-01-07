@@ -1,0 +1,29 @@
+.LayoutOperator {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh; 
+  background-color: #dad0c0;
+}
+
+.LayoutOperator > header,
+.LayoutOperator > footer {
+  flex-shrink: 0; 
+  background-color: #928b75; 
+}
+
+.LayoutOperator > main {
+  flex-grow: 1; 
+  background-color: #e8e8e8;
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+  overflow-y: auto;
+}
+
+
+
+@media (max-width: 900px) {
+  .LayoutOperator .Layout__header > .LogoName__brand h1{
+     display: none;
+  }
+}
