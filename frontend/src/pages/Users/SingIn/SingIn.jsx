@@ -16,6 +16,7 @@ import LogoNameBrand from "../../../components/LogoNameBrand/LogoNameBrand";
 import CustomAlert from "../../../components/CustomAlert/CustomAlert";
 import { useAuthStore } from '../../../storage/auth';
 
+import { Link } from "react-router-dom";
 export default function SingIn() {
   const setUserData = useAuthStore((state) => state.setUserData);
 
@@ -122,9 +123,11 @@ export default function SingIn() {
 
         </form>
         <Button
+          component={Link}
           sx={{ marginTop: '10px', fontWeight: 'bold' }}
           variant="contained"
-          color="tertiary">
+          color="tertiary"
+          to="/SingUp">
           Crear una Cuenta
         </Button>
 

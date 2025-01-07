@@ -12,6 +12,7 @@ import LayoutClient from '../components/layouts/LayoutClient/LayoutClient'
 import ProductSearch from '../pages/Client/ProductSearch/ProductSearch'
 import ShoppingCart from '../pages/Client/ShoppingCart/ShoppingCart'
 import ClientOrders from '../pages/Client/ClientOrders/ClientOrders'
+import SingUp from '../pages/Users/SingUp/SingUp'
 
 export default function AppNavigator() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -28,6 +29,7 @@ export default function AppNavigator() {
         <Route element={<PrivateRoute isAuth={isAuth} rolIdRol={rolIdRol}/>}>
           <Route element={<LayoutAuth />}>
             <Route path="/SingIn" element={<SingIn />} />
+            <Route path="/SingUp" element={<SingUp />} />
           </Route>
         </Route>
 

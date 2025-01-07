@@ -22,15 +22,18 @@ export const Design = (mode) => ({
     text: {
       primary: "#60c6b4",
       secondary: "#000"
-      // primary: 'rgba(255,0,0,0.87)',
-      // secondary: 'rgba(255,0,0,0.6)',
-      // disabled: 'rgba(255,0,0,0.38)',
     },
   },
   components: {
     MuiTextField: {
       styleOverrides: {
         root: {
+          '& .MuiInputBase-input': {
+            color: 'black', // Texto del campo de entrada
+          },
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: '#cecccc', // Fondo predeterminado para el TextField outlined
+          },
           '& .MuiFilledInput-root': {
             backgroundColor: '#C7C7C7FF', // Fondo predeterminado para el TextField filled
             borderRadius: '8px 8px 0px 0px', // Bordes redondeados
@@ -84,6 +87,38 @@ export const Design = (mode) => ({
             color: '#333', // Color de la etiqueta cuando está enfocado
           },
         },
+      },
+    },
+    MuiPickersDay: {
+      styleOverrides: {
+        root: {
+          color: 'black', // Color de los números en el calendario
+          '&.Mui-selected': {
+            backgroundColor: 'black', // Fondo del día seleccionado
+            color: 'white', // Color del texto del día seleccionado
+          },
+        },
+      },
+    },
+    MuiPickersYear: {
+      styleOverrides: {
+        root: {
+          color: 'black', // Color de los años
+        },
+      },
+    },
+    MuiPickersMonth: {
+      styleOverrides: {
+        root: {
+          color: 'black', // Color de los meses
+        },
+      },
+    },
+  },
+  MuiDatePicker: {
+    styleOverrides: {
+      root: {
+        color: 'black', // Cambia el color del texto principal
       },
     },
   },
