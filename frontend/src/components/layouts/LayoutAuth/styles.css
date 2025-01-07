@@ -1,17 +1,17 @@
-.LayoutAuth {
+.layoutAuth {
    display: flex;
    flex-direction: column;
    min-height: 100svh; 
    background-color: #dad0c0;
  }
  
- .LayoutAuth > header,
- .LayoutAuth > footer {
+ .layoutAuth > header,
+ .layoutAuth > footer {
    flex-shrink: 0; 
    background-color: #928b75; 
  }
  
- .LayoutAuth > main {
+ .layoutAuth > main {
    flex-grow: 1; 
    background-color: #dbcfbf;
    background-size: cover; 

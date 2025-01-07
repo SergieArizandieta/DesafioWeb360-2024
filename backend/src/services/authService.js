@@ -3,14 +3,14 @@ const authUtil = require("../utils/authUtil");
 
 exports.login = async (email, password) => {
   try{
-    const user = await authModel.findOneByEmail(email, ['id_userDPI', 'rol_id_rol', 'password']);
+    const user = await authModel.findOneByEmail(email, ['id_userDPI', 'rol_id_rol', 'password', 'full_name']);
     if (!user) throw new Error('User not found');
 
     const isValidPassword = await authUtil.verifyPassword(password, user.password);
     
     if (!isValidPassword) throw new Error('Usuario o contraseña incorrectos');
 
-    const payload = {id_userDPI:user.id_userDPI,rol_id_rol:user.rol_id_rol};
+    const payload = {id_userDPI:user.id_userDPI,rol_id_rol:user.rol_id_rol,full_name:user.full_name};
     const AccJwt = authUtil.generateAccesToken(payload);
     const RefJwt = authUtil.generateRefreshToken(payload);
 

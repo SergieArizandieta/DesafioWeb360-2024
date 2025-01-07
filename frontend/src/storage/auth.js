@@ -7,7 +7,8 @@ export const useAuthStore = create(
       isAuth: false,
       idUserDPI: null,
       rolIdRol: null,
-      setUserData: (token,idUserDPI,rolIdRol) => set({token,idUserDPI,rolIdRol,isAuth: true}),
+      fullName: null,
+      setUserData: (token,idUserDPI,rolIdRol,fullName) => set({token,idUserDPI,rolIdRol,fullName,isAuth: true}),
       logout: () => set({ token: null, isAuth: false, idUserDPI: null, rolIdRol: null }),
    }), {
       name: "auth-storage"

@@ -7,10 +7,13 @@ const initModels = async () => {
     const sequelize = await connectToDatabase();
 
     models.User = sequelize.define("User", {
-         id_userDPI: {
+        id_userDPI: {
             type: DataTypes.CHAR(13),
             primaryKey: true,
-         },
+        },
+        full_name:{
+            type: DataTypes.STRING,
+        },
         email: {
             type: DataTypes.STRING,
         },

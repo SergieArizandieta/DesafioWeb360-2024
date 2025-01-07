@@ -1,0 +1,21 @@
+.layoutClient__header__buttonsRight {
+   display: flex;
+   gap: 10px;
+}
+
+.layoutClient__header__buttonsRight a{
+   font-weight: bold;
+}
+
+.layoutClient__header__buttonsRightMobile {
+   display: none;
+}
+
+@media (max-width: 630px) {
+   .layoutClient__header__buttonsRightMobile {
+      display: block;
+   }
+   .layoutClient__header__buttonsRight {
+      display: none;
+   }
+}

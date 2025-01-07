@@ -14,7 +14,7 @@ import { jwtDecode } from 'jwt-decode'
 import { singIn_Service } from "./services/SingIn";
 import LogoNameBrand from "../../../components/LogoNameBrand/LogoNameBrand";
 import CustomAlert from "../../../components/CustomAlert/CustomAlert";
-import { useAuthStore } from '../../../store/auth';
+import { useAuthStore } from '../../../storage/auth';
 
 export default function SingIn() {
   const setUserData = useAuthStore((state) => state.setUserData);
@@ -32,11 +32,11 @@ export default function SingIn() {
     singIn_Service(data)
     .then(async(res) => {await CustomAlert("Bienvenido", res.message, true); return res.AccJwt;})
     .then((AccJwt) => {    
-      const {id_userDPI, rol_id_rol} = jwtDecode(AccJwt);
+      const {id_userDPI, rol_id_rol, full_name} = jwtDecode(AccJwt);
 
       console.log("==AccJwt",AccJwt)
-      console.log("id_userDPI, rol_id_rol",id_userDPI,rol_id_rol)
-      setUserData(AccJwt,id_userDPI, rol_id_rol)
+      console.log("id_userDPI, rol_id_rol, full_name",id_userDPI,rol_id_rol, full_name)
+      setUserData(AccJwt,id_userDPI, rol_id_rol, full_name)
     })
     .catch((err) => {
       CustomAlert("Ah ocurrido un error", err, false)

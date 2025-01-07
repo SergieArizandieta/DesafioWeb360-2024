@@ -1,0 +1,35 @@
+.store{
+   height: calc(100svh - 160px);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+ 
+ .store__categories{
+   width: 100%;
+   height: 40px;
+   background-color: #c5c1b8;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   border: 1px solid blue;
+   padding: 0px 20px;
+
+ }
+
+ .store__categories article{
+   display: flex;
+   align-items: center;
+   color: #928b75;
+   gap: 5px;
+   cursor: pointer;
+ }
+
+ .store__categories article p{
+   color: #000;
+ }
+
+ .store__content{
+   background-color: red;
+ }
+ 

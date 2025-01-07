@@ -9,7 +9,7 @@ export default function LayoutAuth() {
 
 
   return (
-      <main className="LayoutAuth">
+      <main className="layoutAuth">
         <Header />
         <main><Outlet/></main>
         <Footer/>
