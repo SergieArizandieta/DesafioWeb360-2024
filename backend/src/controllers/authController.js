@@ -4,14 +4,14 @@ const authUtil = require('../utils/authUtil.js');
 exports.login = async (req, res) => {
   const { refreshToken } = req.cookies;
 
-  if (refreshToken) {
-    try{
-      authUtil.verifyRefreshToken(refreshToken);
-      return res.status(400).json({ message: 'User already logged in'});
-    } catch (error) {
-      console.error('Session Expired:');
-    }
-  }
+  // if (refreshToken) {
+  //   try{
+  //     authUtil.verifyRefreshToken(refreshToken);
+  //     return res.status(400).json({ message: "Ya has iniciado sesión" });
+  //   } catch (error) {
+  //     console.error('Session Expired:');
+  //   }
+  // }
     
   const { email, password } = req.body;
 
@@ -25,8 +25,7 @@ exports.login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000
     });
 
-    let message = 'Login successful';
-    res.status(200).json({ AccJwt, message });
+    res.status(200).json({ AccJwt, message: "Inicio de sesión exitoso" });
   } catch (error) {
     console.error('Error in login:', error);
     res.status(500).json({ message: error.message });

@@ -11,8 +11,13 @@ import { loginSchema } from "./yupValidations/yupValidations";
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form';
 
+import { singIn_Service } from "./services/SingIn";
+import CustomAlert from "../../components/CustomAlert/CustomAlert";
+import { useAuthStore } from '../../store/auth';
 
 export default function SingIn() {
+  const setToken = useAuthStore((state) => state.setToken);
+
   const schema = loginSchema;
 
   const { register, handleSubmit, formState: {errors} } = useForm({
@@ -23,8 +28,15 @@ export default function SingIn() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit = (data) => {
-    console.log('submit')
-    console.log(data)
+    singIn_Service(data)
+    .then(async(res) => {await CustomAlert("Bienvenido", res.message, true); return res.AccJwt;})
+    .then((AccJwt) => {    
+      console.log("==AccJwt",AccJwt)
+      setToken(AccJwt)
+    })
+    .catch((err) => {
+      CustomAlert("Ah ocurrido un error", err, false)
+    })
   }
 
   return (
