@@ -1,4 +1,4 @@
-import {api} from '../../../api/BaseApi'
+import {api} from '../../../../api/BaseApi'
 
 export function singIn_Service(data) {
   return api.post('/auth/login', data)

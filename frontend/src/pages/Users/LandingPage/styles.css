@@ -23,7 +23,7 @@
   font-weight: bold;
 }
 
-.landingPage__section button {
+.landingPage__section a {
   font-weight: bold;
   border: 2px solid #000000a3;
   border-radius: 5px;
