@@ -1,7 +1,7 @@
 .Layout__footer {
    display: flex;
    justify-content: space-between;
-   padding: 15px 20px;
+   padding: 15px 40px;
    background-color: #928b75;
    color: #fff;
    height: 100%;
@@ -49,11 +49,12 @@
       display: block;
    }
 
-   .LayoutLading__footer > section:nth-child(4) p {
+
+   .Layout__footer > section:nth-child(4) p {
       margin: 6px;
    }
 
-   .LayoutLading__footer > section:nth-child(4) p br {
+   .Layout__footer > section:nth-child(4) p br {
       display: none;
    }
 }

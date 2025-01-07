@@ -1,5 +1,4 @@
 .landingPage{
-  border: 1px solid red;
   height: calc(100svh - 160px);
   display: flex;
   align-items: center;
